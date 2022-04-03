@@ -18,11 +18,7 @@ O projeto foi desenvolvido utilizado as seguintes tecnologias
 
 - [ReactJS](https://reactjs.org)
 
-<br/>
-
 ---
-
-<br/>
 
 ## 📁 Como baixar o projeto
 
