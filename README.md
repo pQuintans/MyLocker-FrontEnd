@@ -26,7 +26,7 @@ O projeto foi desenvolvido utilizado as seguintes tecnologias
   # Clonar o repositório
   $ git clone https://github.com/pQuintans/MyLocker-FrontEnd.git
 
-  #Entrar no diretório
+  # Entrar no diretório
   $cd MyLocker-FrontEnd
 
   # Instalar as dependências
