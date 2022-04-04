@@ -1,11 +1,10 @@
 import React from 'react'
+import LandingPage from './Pages/LandingPage'
+
+import './global.scss'
 
 function App() {
-  return (
-    <div>
-      <h1>Test</h1>
-    </div>
-  )
+  return <LandingPage />
 }
 
 export default App
