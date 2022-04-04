@@ -1,5 +1,6 @@
 :root {
   --dark-blue: #002147;
+  --medium-blue: #0085FF;
   --dark-yellow: #FDC800;
 }
 
@@ -8,4 +9,10 @@
   padding: 0;
   box-sizing: border-box;
   font-family: 'Roboto', sans-serif;
+}
+
+p {
+  &:hover {
+    cursor: default;
+  }
 }

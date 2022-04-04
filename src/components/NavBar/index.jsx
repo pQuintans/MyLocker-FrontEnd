@@ -1,6 +1,7 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
-import DefaultProfilePic from '../../assets/DefaultProfilePicture.jpg'
+// import DefaultProfilePic from '../../assets/DefaultProfilePicture.jpg'
 import UnicampLogo from '../../assets/UnicampLogo.svg'
 
 import './styles.scss'
@@ -20,11 +21,14 @@ function NavBar() {
         <div className='last-section'>
           <p>Sobre Nós</p>
           <p>Contato</p>
-          <img
+          {/* <img
             src={DefaultProfilePic}
             alt='Foto de Perfil'
             className='profile-picture'
-          />
+          /> */}
+          <Link to='/login' className='login-button'>
+            Entrar
+          </Link>
         </div>
       </div>
     </nav>

@@ -44,11 +44,29 @@ nav{
         &.actual-page {
           color: var(--dark-yellow);
         }
+
+        &:hover {
+          cursor: pointer;
+        }
       }
 
       .profile-picture {
         width: 75px;
         border-radius: 100%;
+
+        &:hover {
+          cursor: pointer;
+        }
+      }
+
+      .login-button {
+        font: bold 30px 'Roboto';
+        color: #fff;
+        text-decoration: none;
+
+        padding: 15px 20px;
+        border-radius: 15px;
+        background: var(--medium-blue);
       }
     }
   }
