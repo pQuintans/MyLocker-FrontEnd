@@ -1,6 +1,11 @@
 import React from 'react'
 
-import { AiOutlineTwitter } from 'react-icons/ai'
+import {
+  AiOutlineTwitter,
+  AiOutlineInstagram,
+  AiFillYoutube,
+  AiOutlineMail,
+} from 'react-icons/ai'
 
 import DefaultProfilePic from '../../assets/DefaultProfilePicture.jpg'
 import LandingPageImage from '../../assets/LandingPageImage.jpg'
@@ -52,17 +57,17 @@ function LandingPage() {
           <img src={ShortLogoWhite} alt='MyLocker' />
           <div className='right-section'>
             <div className='logo-section'>
-              <div className='logo'>
+              <div className='logo twitter'>
                 <AiOutlineTwitter className='twitter' />
               </div>
-              <div className='logo'>
-                <AiOutlineTwitter className='twitter' />
+              <div className='logo instagram'>
+                <AiOutlineInstagram className='twitter' />
               </div>
-              <div className='logo'>
-                <AiOutlineTwitter className='twitter' />
+              <div className='logo youtube'>
+                <AiFillYoutube className='twitter' />
               </div>
-              <div className='logo'>
-                <AiOutlineTwitter className='twitter' />
+              <div className='logo email'>
+                <AiOutlineMail className='twitter' />
               </div>
             </div>
             <p>Sobre Nós</p>
