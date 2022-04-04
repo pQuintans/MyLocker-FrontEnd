@@ -1,10 +1,10 @@
 import React from 'react'
-import LandingPage from './Pages/LandingPage'
+import LoginPage from './Pages/LoginPage'
 
 import './global.scss'
 
 function App() {
-  return <LandingPage />
+  return <LoginPage />
 }
 
 export default App
