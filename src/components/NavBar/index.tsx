@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 
 // import DefaultProfilePic from '../../assets/DefaultProfilePicture.jpg'
 import UnicampLogo from '../../assets/UnicampLogo.svg'
@@ -8,10 +8,15 @@ import './styles.scss'
 
 type NavBarTypes = {
   smallNav?: boolean
-  active?: 'landing' | 'rent-locker' | 'about-us' | 'contact'
 }
 
-function NavBar({ smallNav, active }: NavBarTypes) {
+type PageParams = {
+  active?: string
+}
+
+function NavBar({ smallNav }: NavBarTypes) {
+  const { active } = useParams<PageParams>()
+
   return (
     <nav>
       <div className='nav-header'>
@@ -20,7 +25,7 @@ function NavBar({ smallNav, active }: NavBarTypes) {
       {!smallNav && (
         <div className='nav-body'>
           <div className='first-section'>
-            {active == 'landing' ? (
+            {active == undefined ? (
               <p className='actual-page'>Início</p>
             ) : (
               <p>Início</p>
