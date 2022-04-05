@@ -8,7 +8,7 @@ import './styles.scss'
 function LoginPage() {
   return (
     <div id='login-page'>
-      <NavBar />
+      <NavBar smallNav={true} />
       <div className='form-container'>
         <form
           onSubmit={(e: React.FormEvent<HTMLFormElement>) => {

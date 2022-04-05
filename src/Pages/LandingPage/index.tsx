@@ -10,7 +10,7 @@ import './styles.scss'
 function LandingPage() {
   return (
     <div id='LandingPage'>
-      <NavBar />
+      <NavBar active='landing' />
       <main>
         <img src={LandingPageImage} alt='Armários' />
         <div className='text-container'>

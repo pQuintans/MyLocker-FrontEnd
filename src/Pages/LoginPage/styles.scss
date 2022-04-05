@@ -1,12 +1,6 @@
 #login-page {
   width: calc(100vw - var(--scrollbarWidth));
 
-  nav {
-    .nav-body {
-      display: none;
-    }
-  }
-
   .form-container {
     height: calc(100vh - 52px);
 
