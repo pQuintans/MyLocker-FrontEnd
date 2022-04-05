@@ -25,12 +25,12 @@
   ],
   "rules": {
     "indent": ["error", 2],
-    "linebreak-style": ["error", "unix"],
+    "linebreak-style": ["error", "windows"],
     "quotes": ["error", "single"],
     "semi": ["error", "never"],
     "trailingCommas": "off",
     "prettier/prettier": [
-      "error", 
+      "error",
       {
         "semi": false,
         "singleQuote": true,
@@ -38,7 +38,7 @@
         "trailingCommas": "none",
         "tabWidth": 2,
         "jsxSingleQuote": true,
-        "endOfLine": "lf"
+        "endOfLine": "crlf"
       }
     ],
     "space-before-function-paren": "off",

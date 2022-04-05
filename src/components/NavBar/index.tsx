@@ -1,7 +1,9 @@
 import React from 'react'
+
 import { Link, useParams } from 'react-router-dom'
 
 // import DefaultProfilePic from '../../assets/DefaultProfilePicture.jpg'
+
 import UnicampLogo from '../../assets/UnicampLogo.svg'
 
 import './styles.scss'
@@ -22,6 +24,7 @@ function NavBar({ smallNav }: NavBarTypes) {
       <div className='nav-header'>
         <p>Colégio Técnico de Limeira</p>
       </div>
+
       {!smallNav && (
         <div className='nav-body'>
           <div className='first-section'>
@@ -30,6 +33,7 @@ function NavBar({ smallNav }: NavBarTypes) {
             ) : (
               <p>Início</p>
             )}
+
             {active == 'rent-locker' ? (
               <p className='actual-page'>Aluguel de Armários</p>
             ) : (
@@ -52,11 +56,13 @@ function NavBar({ smallNav }: NavBarTypes) {
             ) : (
               <p>Contato</p>
             )}
+
             {/* <img
-            src={DefaultProfilePic}
-            alt='Foto de Perfil'
-            className='profile-picture'
-          /> */}
+              src={DefaultProfilePic}
+              alt='Foto de Perfil'
+              className='profile-picture'
+            /> */}
+
             <Link to='/login' className='login-button'>
               Entrar
             </Link>

@@ -1,9 +1,9 @@
 import React from 'react'
 
-import LandingPageImage from '../../assets/LandingPageImage.jpg'
 import Footer from '../../components/Footer'
-
 import NavBar from '../../components/NavBar'
+
+import LandingPageImage from '../../assets/LandingPageImage.jpg'
 
 import './styles.scss'
 
