@@ -16,9 +16,9 @@ nav{
   }
 
   .nav-body {
-    width: 1210px;
+    width: 1320px;
     height: 145px;
-    padding: 0 20px;
+    padding: 0 55px;
 
     display: flex;
     justify-content: space-between;
@@ -38,8 +38,10 @@ nav{
       justify-content: space-between;
       align-items: center;
 
-      p {
+      .link {
         font: 500 30px 'Roboto';
+        color: #000;
+        text-decoration: none;
 
         &.actual-page {
           color: var(--dark-yellow);

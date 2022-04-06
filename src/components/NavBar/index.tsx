@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { Link, useParams } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 
 // import DefaultProfilePic from '../../assets/DefaultProfilePicture.jpg'
 
@@ -12,12 +12,9 @@ type NavBarTypes = {
   smallNav?: boolean
 }
 
-type PageParams = {
-  active?: string
-}
-
 function NavBar({ smallNav }: NavBarTypes) {
-  const { active } = useParams<PageParams>()
+  const { pathname: actualPage } = useLocation()
+  console.log(actualPage)
 
   return (
     <nav>
@@ -28,16 +25,24 @@ function NavBar({ smallNav }: NavBarTypes) {
       {!smallNav && (
         <div className='nav-body'>
           <div className='first-section'>
-            {active == undefined ? (
-              <p className='actual-page'>Início</p>
+            {actualPage == '/' ? (
+              <Link to='/' className='link actual-page'>
+                Início
+              </Link>
             ) : (
-              <p>Início</p>
+              <Link to='/' className='link'>
+                Início
+              </Link>
             )}
 
-            {active == 'rent-locker' ? (
-              <p className='actual-page'>Aluguel de Armários</p>
+            {actualPage == '/rent-locker' ? (
+              <Link to='/alugar-armario' className='link actual-page'>
+                Aluguel de Armários
+              </Link>
             ) : (
-              <p>Aluguel de Armários</p>
+              <Link to='/alugar-armario' className='link'>
+                Aluguel de Armários
+              </Link>
             )}
           </div>
           <img
@@ -46,15 +51,23 @@ function NavBar({ smallNav }: NavBarTypes) {
             className='unicamp-logo'
           />
           <div className='last-section'>
-            {active == 'about-us' ? (
-              <p className='actual-page'>Sobre Nós</p>
+            {actualPage == '/sobre-nos' ? (
+              <Link to='/sobre-nos' className='link actual-page'>
+                Sobre Nós
+              </Link>
             ) : (
-              <p>Sobre Nós</p>
+              <Link to='/sobre-nos' className='link'>
+                Sobre Nós
+              </Link>
             )}
-            {active == 'contact' ? (
-              <p className='actual-page'>Contato</p>
+            {actualPage == '/contact' ? (
+              <Link to='/contato' className='link actual-page'>
+                Contato
+              </Link>
             ) : (
-              <p>Contato</p>
+              <Link to='/contato' className='link'>
+                Contato
+              </Link>
             )}
 
             {/* <img

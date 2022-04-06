@@ -1,0 +1,103 @@
+#aboutUs-page {
+  width: calc(100vw - var(--scrollbarWidth));
+
+  display: flex;
+  flex-direction: column;
+
+  main {
+    width: 1350px;
+    align-self: center;
+    padding: 50px 0 80px;
+
+    .title-container {
+      padding: 0 30px 60px 0;
+      .page-title {
+        font: 500 40px 'Roboto';
+      }
+
+      .page-subtitle {
+        font-size: 25px;
+        color: #717171;
+      }
+    }
+
+    .cards-container {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      gap: 45px;
+
+      .left-container {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+
+        .card {
+          display: flex;
+          align-items: center;
+          justify-content: space-around;
+
+          background: #D4E2FC;
+
+          border-radius: 70px;
+          padding: 40px;
+
+          .cards-content {
+            .title {
+              font: 500 36px 'Roboto';
+              margin-bottom: 15px;
+
+              &.team {
+                color: #148086;
+              }
+
+              &.plataform {
+                color: #207DA6;
+              }
+            }
+
+            .content {
+              width: 300px;
+              font-size: 27px;
+              color: #4F4F4F;
+            }
+          }
+
+          img {
+            height: 100%;
+          }
+        }
+      }
+
+      .right-container {
+        background: #D4E2FC;
+        border-radius: 70px;
+        padding: 40px;
+
+        .cards-content {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+
+          text-align: center;
+
+          .title {
+            margin-bottom: 15px;
+            font: 500 36px 'Roboto';
+
+            &.problem {
+              color: #8B63FF;
+            }
+          }
+
+          .content {
+            width: 300px;
+            font-size: 27px;
+            color: #4F4F4F;
+          }
+        }
+      }
+    }
+  }
+}
