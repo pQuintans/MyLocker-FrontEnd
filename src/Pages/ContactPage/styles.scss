@@ -1,0 +1,58 @@
+#contact-page {
+  width: calc(100vw - var(--scrollbarWidth));
+
+  display: flex;
+  flex-direction: column;
+
+  main {
+    width: 1350px;
+    align-self: center;
+    padding: 50px 0 80px;
+
+    .title-container {
+      padding: 0 0 60px  30px;
+
+      .page-title {
+        font: 500 40px 'Roboto';
+      }
+
+      .page-subtitle {
+        font-size: 25px;
+        color: #717171;
+      }
+    }
+
+    .contact-container {
+      display: flex;
+      background-color: #D5E2FD;
+      border-radius: 25px;
+
+      .contact-header {
+        color: #fff;
+        background: var(--dark-blue);
+        padding: 40px 45px;
+        width:  65%;
+        border-radius: 25px;
+      }
+
+      .contact-body {
+        width: 35%;
+        padding: 60px 45px;
+
+        form {
+          display: flex;
+          flex-direction: column;
+
+          label {
+            font: 400 18px 'Roboto';
+          }
+
+          input, textarea {
+            padding: 20px 10px;
+          }
+        }
+      }
+    }
+
+  }
+}

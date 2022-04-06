@@ -14,7 +14,6 @@ type NavBarTypes = {
 
 function NavBar({ smallNav }: NavBarTypes) {
   const { pathname: actualPage } = useLocation()
-  console.log(actualPage)
 
   return (
     <nav>
@@ -35,7 +34,7 @@ function NavBar({ smallNav }: NavBarTypes) {
               </Link>
             )}
 
-            {actualPage == '/rent-locker' ? (
+            {actualPage == '/alugar-armario' ? (
               <Link to='/alugar-armario' className='link actual-page'>
                 Aluguel de Armários
               </Link>
@@ -60,7 +59,7 @@ function NavBar({ smallNav }: NavBarTypes) {
                 Sobre Nós
               </Link>
             )}
-            {actualPage == '/contact' ? (
+            {actualPage == '/contato' ? (
               <Link to='/contato' className='link actual-page'>
                 Contato
               </Link>
