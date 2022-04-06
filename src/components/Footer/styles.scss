@@ -59,8 +59,11 @@
           }
         }
 
-        p {
+        .link {
+          color: #fff;
           font: 400 25px 'Roboto';
+          text-decoration: none;
+
           margin-bottom: 5px;
         }
       }

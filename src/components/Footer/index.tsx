@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 import {
   AiOutlineTwitter,
@@ -31,8 +32,12 @@ function Footer() {
               <AiOutlineMail className='twitter' />
             </div>
           </div>
-          <p>Sobre Nós</p>
-          <p>Precisa de Ajuda</p>
+          <Link className='link' to='/sobre-nos'>
+            Sobre Nós
+          </Link>
+          <Link className='link' to='/contato'>
+            Precisa de Ajuda
+          </Link>
         </div>
       </div>
     </footer>

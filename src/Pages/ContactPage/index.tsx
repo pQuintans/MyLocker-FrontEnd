@@ -23,8 +23,8 @@ function ContactPage() {
         <div className='contact-container'>
           <div className='contact-header'>
             <div className='text-container'>
-              <p>Informações de Contato</p>
-              <p>
+              <p className='title'>Informações de Contato</p>
+              <p className='subtitle'>
                 Preencha o formulário e nossa equipe entrará em contato em menos
                 de 48 horas.
               </p>
@@ -51,6 +51,7 @@ function ContactPage() {
               <input type='text' id='input-last-name' />
               <label htmlFor=''>Mensagem</label>
               <textarea id='input-message' />
+              <button type='button'>Enviar Mensagem</button>
             </form>
           </div>
         </div>
