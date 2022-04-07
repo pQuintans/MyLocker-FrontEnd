@@ -32,7 +32,7 @@ function ContactPage() {
             <div className='data-container'>
               <div className='phone'>
                 <MdPhone />
-                <p>mylocker.contato@gmail.com</p>
+                <p>(019) 9XXXX-YYYY</p>
               </div>
               <div className='mail'>
                 <MdEmail />
