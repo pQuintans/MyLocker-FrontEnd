@@ -1,4 +1,4 @@
-#login-page {
+#verify-email-page {
   width: calc(100vw - var(--scrollbarWidth));
 
   .form-container {
@@ -62,24 +62,41 @@
           .input-container {
             width: 100%;
 
-            input {
+            .input-group {
+              display: flex;
+              padding: 0 18px;
+              justify-content: space-between;
               width: 100%;
-              padding: 25px;
-              border-radius: 10px;
-              border: none;
-              font-size: 25px;
 
-              box-shadow: 0px 2px 6px 0px #00000040;
+              input {
+                width: 63px;
+                padding: 25px;
+                border-radius: 10px;
+                border: none;
+                font-size: 25px;
 
-              &:focus {
-                outline: 0;
-                box-shadow: 0px 2px 6px 0px #0000006b;
-              }
+                box-shadow: 0px 2px 6px 0px #00000040;
 
-              &:hover {
-                box-shadow: 0px 2px 6px 0px #0000006b;
+                &[type=number]::-webkit-inner-spin-button {
+                  -webkit-appearance: none;
+                }
+
+                &[type=number] {
+                  -moz-appearance: textfield;
+                  appearance: textfield;
+                }
+
+                &:focus {
+                  outline: 0;
+                  box-shadow: 0px 2px 6px 0px #0000006b;
+                }
+
+                &:hover {
+                  box-shadow: 0px 2px 6px 0px #0000006b;
+                }
               }
             }
+
 
             p {
               margin: 25px 10px 0 0;
