@@ -1,0 +1,28 @@
+#choose-lockers-section {
+  padding: 60px 30px;
+  border-radius: 50px;
+
+  background: var(--light-gray);
+
+  display: flex;
+  justify-content: space-between;
+
+  .section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 40px;
+
+    .in-section {
+      display: flex;
+      align-items: center;
+      position: relative;
+
+      p {
+        writing-mode: vertical-rl;
+        transform: rotate(180deg);
+        font: 600 25px 'Roboto';
+      }
+    }
+  }
+}

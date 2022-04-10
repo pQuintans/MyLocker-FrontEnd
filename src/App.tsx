@@ -9,6 +9,7 @@ import AboutUsPage from './Pages/AboutUsPage'
 import ContactPage from './Pages/ContactPage'
 import VerifyEmailPage from './Pages/VerifyEmailPage'
 import CreatePasswordPage from './Pages/CreatePasswordPage'
+import RentLockerPage from './Pages/RentLockerPage'
 
 import './global.scss'
 
@@ -23,6 +24,7 @@ function App() {
           <Route path='/login/criar-senha' element={<CreatePasswordPage />} />
           <Route path='/sobre-nos' element={<AboutUsPage />} />
           <Route path='/contato' element={<ContactPage />} />
+          <Route path='/alugar-armario' element={<RentLockerPage />} />
         </Routes>
       </ScrollToTop>
     </Router>
