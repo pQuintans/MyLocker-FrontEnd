@@ -1,28 +1,27 @@
 #choose-lockers-section {
-  padding: 60px 30px;
-  border-radius: 50px;
+  display: grid;
+  grid-template-columns: auto auto;
+  gap: 40px 20px;
 
-  background: var(--light-gray);
-
-  display: flex;
-  justify-content: space-between;
-
-  .section {
+  .in-section {
     display: flex;
-    flex-direction: column;
     align-items: center;
-    gap: 40px;
+    justify-content: center;
 
-    .in-section {
-      display: flex;
-      align-items: center;
-      position: relative;
+    img {
+      cursor: pointer;
+    }
 
-      p {
-        writing-mode: vertical-rl;
-        transform: rotate(180deg);
-        font: 600 25px 'Roboto';
-      }
+    p {
+      writing-mode: vertical-rl;
+      transform: rotate(180deg);
+      font: 600 25px 'Roboto';
     }
   }
+}
+
+.choose-locker {
+  padding: 60px 30px;
+  border-radius: 50px;
+  background: var(--light-gray);
 }
