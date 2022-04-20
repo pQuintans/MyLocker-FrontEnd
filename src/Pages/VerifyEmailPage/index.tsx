@@ -4,9 +4,13 @@ import NavBar from '../../components/NavBar'
 
 import Logo from '../../assets/LogoPainted.png'
 
+import { useUser } from '../../hooks/useUser'
+
 import './styles.scss'
 
 function VerifyLoginPage() {
+  const { user, setUser } = useUser()
+
   return (
     <div id='verify-email-page'>
       <NavBar smallNav={true} />
