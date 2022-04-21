@@ -10,8 +10,19 @@ import { AxiosResponse } from 'axios'
 import { useNavigate } from 'react-router-dom'
 import { useUser } from '../../hooks/useUser'
 
+interface Student {
+  ra: string
+  first_name: string
+  last_name: string
+  email: string
+  password?: string
+  code?: string
+  locker_number?: number
+  status?: number
+}
+
 function LoginPage() {
-  const { user, setUser } = useUser()
+  const { setUser } = useUser()
 
   const [loginWithEmailSucceed, setLoginWithEmailSucceed] = useState(false)
   const [email, setEmail] = useState('')
@@ -20,24 +31,27 @@ function LoginPage() {
 
   function handleLogin(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
-
     api
       .get(`/students/${email}`)
       .then((response: AxiosResponse) => {
-        if (response.data.password) {
+        const res: Student = response.data
+        if (res.password) {
           setLoginWithEmailSucceed(true)
-          console.log(user)
-          setUser(response.data)
+          setUser(res)
         } else {
-          const requestBody = { ra: response.data.ra }
+          const requestBody = {
+            ra: res.ra,
+            email: res.email,
+          }
           api
             .put('/students/generate-code', requestBody)
-            .then((response: AxiosResponse) => console.log(response.data))
+            .then((response: AxiosResponse) => {
+              setUser({ ...res, code: response.data })
+            })
             .catch(err => {
               console.log(err.response.data)
             })
           navigate('/login/verificar-email')
-          setUser(response.data)
         }
       })
       .catch(err => {
