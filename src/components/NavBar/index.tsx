@@ -118,10 +118,17 @@ function NavBar({ smallNav }: NavBarTypes) {
                   ref={dropdown}
                   onClick={() => console.log('a')}
                 >
-                  <div className='dropdown-content'>
-                    <CgProfile />
-                    <p>Meu Perfil</p>
-                  </div>
+                  {actualPage == '/perfil' ? (
+                    <div className='dropdown-content actual-page'>
+                      <CgProfile />
+                      <Link to={'/perfil'}>Meu Perfil</Link>
+                    </div>
+                  ) : (
+                    <div className='dropdown-content'>
+                      <CgProfile />
+                      <Link to={'/perfil'}>Meu Perfil</Link>
+                    </div>
+                  )}
                   <div className='dropdown-content'>
                     <BsMoonFill />
                     <p>Modo Noturno</p>

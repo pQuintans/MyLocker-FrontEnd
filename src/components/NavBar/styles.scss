@@ -96,7 +96,7 @@ nav{
             transform: translateX(-50%)
           }
 
-          div {
+          .dropdown-content {
             font-size: 20px;
             color: #464646;
             padding: 15px 0;
@@ -108,6 +108,20 @@ nav{
             gap: 10px;
             z-index: 2;
 
+            &.actual-page {
+              color: rgb(114, 114, 114);
+
+              a {
+                color: rgb(114, 114, 114);
+              }
+            }
+
+            a {
+              text-decoration: none;
+              color: #464646;
+
+
+            }
 
             svg {
               width: 25px;
@@ -121,6 +135,7 @@ nav{
             .css-5ryogn-MuiButtonBase-root-MuiSwitch-switchBase > .css-jsexje-MuiSwitch-thumb{
               background:  #e4e4e4;
             }
+
             .Mui-checked  >  .css-jsexje-MuiSwitch-thumb{
               background:  #303134;
             }

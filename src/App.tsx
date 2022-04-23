@@ -13,6 +13,7 @@ import RentLockerPage from './Pages/RentLockerPage'
 
 import './global.scss'
 import { UserContextProvider } from './contexts/UserContext'
+import ProfilePage from './Pages/ProfilePage'
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
             <Route path='/sobre-nos' element={<AboutUsPage />} />
             <Route path='/contato' element={<ContactPage />} />
             <Route path='/alugar-armario' element={<RentLockerPage />} />
+            <Route path='/perfil' element={<ProfilePage />} />
           </Routes>
         </ScrollToTop>
       </Router>
