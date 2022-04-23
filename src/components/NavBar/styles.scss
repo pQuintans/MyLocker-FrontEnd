@@ -2,6 +2,7 @@ nav{
   display: flex;
   flex-direction: column;
   align-items: center;
+  z-index: 2;
 
   .nav-header {
     background-color: var(--dark-blue);
@@ -52,12 +53,90 @@ nav{
         }
       }
 
-      .profile-picture {
-        width: 75px;
-        border-radius: 100%;
+      .profile-picture-container {
+        display: flex;
+        flex-direction: column;
+        position: relative;
+        width: fit-content;
 
-        &:hover {
-          cursor: pointer;
+        .profile-picture {
+          width: 75px;
+          border-radius: 100%;
+
+          &:hover {
+            cursor: pointer;
+          }
+        }
+
+        .profile-picture-dropdown {
+          display: none;
+          position: absolute;
+          z-index: 2;
+          bottom: -10px;
+          transform: translatey(100%);
+          flex-direction: column;
+          align-items: flex-start;
+          background: #F8F8F8;
+          padding: 5px 15px;
+          width: 270px;
+          border-radius: 10px;
+          box-shadow: 4px 4px 48px 0px #0000003d;
+
+          &::before {
+            content: '';
+            width: 0;
+            height: 0;
+            border-left: 10px solid transparent;
+            border-right: 10px solid transparent;
+            border-bottom: 5px solid #F8F8F8;
+            position: absolute;
+            top: -5px;
+            left: 50%;
+            z-index: 5;
+            transform: translateX(-50%)
+          }
+
+          div {
+            font-size: 20px;
+            color: #464646;
+            padding: 15px 0;
+            border-bottom: 1px solid #E0E0E0;
+            width: 100%;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            gap: 10px;
+            z-index: 2;
+
+
+            svg {
+              width: 25px;
+              height: 25px;
+            }
+
+            &:last-child {
+              border-bottom: none;
+            }
+
+            .css-5ryogn-MuiButtonBase-root-MuiSwitch-switchBase > .css-jsexje-MuiSwitch-thumb{
+              background:  #e4e4e4;
+            }
+            .Mui-checked  >  .css-jsexje-MuiSwitch-thumb{
+              background:  #303134;
+            }
+          }
+
+          @keyframes fade_in_show {
+            0% {
+              opacity: 0;
+              transform: translatey(100%) scale(0)
+            }
+
+            100% {
+              opacity: 1;
+              transform: translatey(100%) scale(1)
+            }
+          }
         }
       }
 

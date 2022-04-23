@@ -9,6 +9,7 @@ interface Student {
   code?: string
   locker_number?: number
   status?: number
+  profile_picture_url?: string
 }
 
 interface UserContextType {

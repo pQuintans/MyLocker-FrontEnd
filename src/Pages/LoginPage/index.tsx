@@ -1,14 +1,17 @@
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
+import toast, { Toaster } from 'react-hot-toast'
+import { useNavigate } from 'react-router-dom'
+import { AxiosResponse } from 'axios'
+import { compare } from 'bcryptjs'
 
 import NavBar from '../../components/NavBar'
 
 import Logo from '../../assets/LogoPainted.png'
 
-import './styles.scss'
 import api from '../../api'
-import { AxiosResponse } from 'axios'
-import { useNavigate } from 'react-router-dom'
 import { useUser } from '../../hooks/useUser'
+
+import './styles.scss'
 
 interface Student {
   ra: string
@@ -22,12 +25,14 @@ interface Student {
 }
 
 function LoginPage() {
-  const { setUser } = useUser()
+  const { user, setUser } = useUser()
 
   const [loginWithEmailSucceed, setLoginWithEmailSucceed] = useState(false)
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const navigate = useNavigate()
+
+  const passwordInput = useRef<HTMLInputElement>(null)
 
   function handleLogin(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
@@ -59,8 +64,26 @@ function LoginPage() {
       })
   }
 
+  async function handlePasswordVerification(
+    e: React.FormEvent<HTMLFormElement>
+  ) {
+    e.preventDefault()
+    const password = passwordInput.current!.value
+
+    const passwordIsCorrect = await compare(password, user.password!)
+
+    if (passwordIsCorrect) {
+      toast.success('Login realizado com sucesso')
+      setTimeout(() => {
+        toast.dismiss()
+        navigate('/')
+      }, 1500)
+    }
+  }
+
   return (
     <div id='login-page'>
+      <Toaster />
       <NavBar smallNav={true} />
       {!loginWithEmailSucceed ? (
         <div className='form-container'>
@@ -91,9 +114,9 @@ function LoginPage() {
       ) : (
         <div className='form-container'>
           <form
-            onSubmit={(e: React.FormEvent<HTMLFormElement>) => {
-              e.preventDefault()
-            }}
+            onSubmit={(e: React.FormEvent<HTMLFormElement>) =>
+              handlePasswordVerification(e)
+            }
           >
             <img src={Logo} alt='MyLocker' />
             <div className='bottom-section'>
@@ -109,11 +132,12 @@ function LoginPage() {
                     placeholder='Senha'
                     onChange={event => setPassword(event.target.value)}
                     value={password}
+                    ref={passwordInput}
                   />
                   <p>Esqueceu sua senha?</p>
                 </div>
               </div>
-              <button>Continuar</button>
+              <button type='submit'>Continuar</button>
             </div>
           </form>
         </div>
