@@ -4,6 +4,139 @@
   display: flex;
   flex-direction: column;
 
+  #toast {
+    z-index: 10;
+  }
+
+  #modal {
+    .modal-container {
+      background: #fff;
+      padding: 55px;
+      border-radius: 50px;
+
+      display: flex;
+      align-items: center;
+
+      &.vertical-modal {
+        flex-direction: column;
+        width: 650px;
+      }
+
+      img {
+        width: 300px;
+        height: 300px;
+        border-radius: 100%;
+      }
+
+      .button-container {
+        display: flex;
+        flex-direction: column;
+        margin-left: 20px;
+
+        button {
+          padding: 15px;
+          background: #FFFFFF;
+          border: 1px solid #DBDBDB;
+          border-radius: 15px;
+          box-shadow: 0px 4px 4px 0px #00000040;
+          font-size: 25px;
+          width: 320px;
+
+          cursor: pointer;
+
+          transition: background 0.5s;
+
+          &:first-of-type {
+            margin-bottom: 30px;
+          }
+
+          &:hover {
+            background: #f1f1f1;
+          }
+        }
+      }
+
+      .title {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+
+        h1 {
+          font: 600 40px 'Roboto';
+        }
+
+        button {
+          background: none;
+          border: none;
+          cursor: pointer;
+          font-size: 40px;
+        }
+      }
+
+      .body {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        width:100%;
+
+        input {
+          width: 100%;
+          padding: 25px;
+          border-radius: 10px;
+          border: none;
+          font-size: 25px;
+
+          box-shadow: 0px 2px 6px 0px #00000040;
+
+          margin-top: 20px;
+
+          &:focus {
+            outline: 0;
+            box-shadow: 0px 2px 6px 0px #0000006b;
+          }
+
+          &:hover {
+            box-shadow: 0px 2px 6px 0px #0000006b;
+          }
+        }
+
+        p {
+          margin-top: 20px;
+          color: var(--medium-blue);
+          font-size: 25px;
+          align-self: flex-start;
+
+          &:hover {
+            cursor: pointer;
+          }
+        }
+
+        button {
+          margin-top: 20px;
+          width: 95%;
+          padding: 15px 0;
+          border-radius: 15px;
+          border: none;
+
+          background: #0085FF;
+
+          font: bold 30px 'Roboto';
+          color: #fff;
+
+          transition: filter 0.4s;
+          // transition: opacity 0.2s;
+
+          &:hover {
+            cursor: pointer;
+            filter: grayscale(30%);
+            // filter: opacity(90%);
+          }
+        }
+      }
+    }
+  }
+
   main {
     width: 1350px;
     align-self: center;

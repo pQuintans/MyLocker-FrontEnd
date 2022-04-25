@@ -38,7 +38,6 @@ function NavBar({ smallNav }: NavBarTypes) {
 
   function handleDropdown() {
     const dropdownDisplay = dropdown.current!.style.display
-    console.log(dropdownDisplay)
     if (dropdownDisplay == '' || dropdownDisplay == 'none') {
       dropdown.current!.style.display = 'flex'
       dropdown.current!.style.animation = 'fade_in_show 300ms'
@@ -113,11 +112,7 @@ function NavBar({ smallNav }: NavBarTypes) {
                   className='profile-picture'
                   onClick={handleDropdown}
                 />
-                <div
-                  className='profile-picture-dropdown'
-                  ref={dropdown}
-                  onClick={() => console.log('a')}
-                >
+                <div className='profile-picture-dropdown' ref={dropdown}>
                   {actualPage == '/perfil' ? (
                     <div className='dropdown-content actual-page'>
                       <CgProfile />

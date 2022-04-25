@@ -1,6 +1,6 @@
 import React, { useState, createContext, ReactNode } from 'react'
 
-interface Student {
+export interface Student {
   ra: string
   first_name: string
   last_name: string

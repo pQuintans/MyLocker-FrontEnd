@@ -10,20 +10,9 @@ import Logo from '../../assets/LogoPainted.png'
 
 import api from '../../api'
 import { useUser } from '../../hooks/useUser'
+import { Student } from '../../contexts/UserContext'
 
 import './styles.scss'
-
-interface Student {
-  ra: string
-  first_name: string
-  last_name: string
-  email: string
-  password?: string
-  code?: string
-  locker_number?: number
-  status?: number
-}
-
 function LoginPage() {
   const { user, setUser } = useUser()
 
