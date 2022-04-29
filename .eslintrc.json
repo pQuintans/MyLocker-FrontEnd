@@ -25,7 +25,7 @@
   ],
   "rules": {
     "indent": ["error", 2],
-    "linebreak-style": ["error", "windows"],
+    "linebreak-style": [0, "error", "windows"],
     "quotes": ["error", "single"],
     "semi": ["error", "never"],
     "trailingCommas": "off",
@@ -38,7 +38,7 @@
         "trailingCommas": "none",
         "tabWidth": 2,
         "jsxSingleQuote": true,
-        "endOfLine": "crlf"
+        "endOfLine": "auto"
       }
     ],
     "space-before-function-paren": "off",
