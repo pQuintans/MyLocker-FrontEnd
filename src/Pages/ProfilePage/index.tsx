@@ -19,6 +19,8 @@ import { compare } from 'bcryptjs'
 function ProfilePage() {
   const { user, setUser } = useUser()
 
+  console.log(user)
+
   const [changeProfilePictureModalIsOpen, setChangeProfilePictureModalIsOpen] =
     useState(false)
   const [changePasswordModalIsOpen, setChangePasswordModalIsOpen] =
