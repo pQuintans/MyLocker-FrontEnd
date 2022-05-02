@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { AiOutlineClose } from 'react-icons/ai'
 
@@ -29,13 +29,16 @@ function ProfilePage() {
   const oldPasswordInputRef = useRef<HTMLInputElement>(null)
   const newPasswordInputRef = useRef<HTMLInputElement>(null)
   const newPasswordConfirmationInputRef = useRef<HTMLInputElement>(null)
+  const selectFileRef = useRef<HTMLInputElement>(null)
 
-  const [newProfilePicture, setNewProfilePicture] = useState(null)
+  const [newProfilePicture, setNewProfilePicture] = useState('')
+  const [selectedImage, setSelectedImage] = useState<File>()
   const userCompleteName = user.first_name + ' ' + user.last_name
 
   function handleChangeProfilePictureModalChangeState() {
     if (changeProfilePictureModalIsOpen) {
       document.body.style.overflow = 'auto'
+      setNewProfilePicture('')
       setChangeProfilePictureModalIsOpen(false)
     } else {
       document.body.style.overflow = 'hidden'
@@ -106,6 +109,34 @@ function ProfilePage() {
       })
   }
 
+  function handleSelectImage(event: React.ChangeEvent<HTMLInputElement>) {
+    if (event.currentTarget.files) {
+      setSelectedImage(event.currentTarget.files[0])
+      const objectUrl = URL.createObjectURL(event.currentTarget.files[0])
+      setNewProfilePicture(objectUrl)
+    }
+  }
+
+  async function handleUploadImage() {
+    if (selectedImage) {
+      const formData = new FormData()
+      formData.append('profile', selectedImage)
+      formData.append('ra', user.ra)
+      api
+        .post('/upload', formData)
+        .then(res => {
+          setUser({
+            ...user,
+            profile_picture_url: res.data.profile_url,
+          })
+          handleChangeProfilePictureModalChangeState()
+        })
+        .catch(err => {
+          console.log(err.response.data)
+        })
+    }
+  }
+
   return (
     <>
       <div id='toast'>
@@ -124,8 +155,19 @@ function ProfilePage() {
               alt='Foto de perfil'
             />
             <div className='button-container'>
-              <button>Selecionar Outra Foto</button>
-              <button>Confirmar Escolha</button>
+              <input
+                type='file'
+                ref={selectFileRef}
+                onChange={event => handleSelectImage(event)}
+              />
+              <button
+                onClick={() => {
+                  selectFileRef.current!.click()
+                }}
+              >
+                Selecionar Outra Foto
+              </button>
+              <button onClick={handleUploadImage}>Confirmar Escolha</button>
             </div>
           </div>
         </Modal>
