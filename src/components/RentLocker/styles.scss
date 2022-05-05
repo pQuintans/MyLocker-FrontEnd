@@ -1,0 +1,8 @@
+#rent-lockers {
+  display: grid;
+  grid-template-columns: auto auto;
+  gap: 40px 20px;
+  padding: 60px 30px;
+  border-radius: 50px;
+  background: var(--light-gray);
+}

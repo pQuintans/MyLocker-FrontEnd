@@ -1,8 +1,4 @@
-#choose-lockers-section {
-  display: grid;
-  grid-template-columns: auto auto;
-  gap: 40px 20px;
-
+.choose-locker-section {
   .in-section {
     display: flex;
     align-items: center;
@@ -18,10 +14,4 @@
       font: 600 25px 'Roboto';
     }
   }
-}
-
-.choose-locker {
-  padding: 60px 30px;
-  border-radius: 50px;
-  background: var(--light-gray);
 }
