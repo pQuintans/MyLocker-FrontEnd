@@ -31,6 +31,7 @@ function LoginPage() {
         const res: Student = response.data
         if (res.password) {
           setLoginWithEmailSucceed(true)
+          console.log(res)
           setUser(res)
         } else {
           const requestBody = {

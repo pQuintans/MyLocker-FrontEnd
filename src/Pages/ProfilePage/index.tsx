@@ -95,7 +95,7 @@ function ProfilePage() {
     }
 
     api
-      .put('/students/set-password', requestBody)
+      .put('/students/update-password', requestBody)
       .then(response => {
         setUser(previousState => ({
           ...previousState,
@@ -125,10 +125,7 @@ function ProfilePage() {
       api
         .post('/upload', formData)
         .then(res => {
-          setUser({
-            ...user,
-            profile_picture_url: res.data.profile_url,
-          })
+          setUser(res.data)
           handleChangeProfilePictureModalChangeState()
         })
         .catch(err => {
