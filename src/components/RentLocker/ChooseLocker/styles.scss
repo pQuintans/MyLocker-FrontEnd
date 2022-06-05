@@ -1,0 +1,44 @@
+$lockers-per-line: unset;
+:export {
+  lockers-per-line: $lockers-per-line;
+}
+
+#rent-lockers {
+  &.choose-locker {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    padding-top: 60px;
+    padding-bottom: 60px;
+
+    gap: 50px;
+
+    .top-section {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      height: 60%;
+
+      p {
+        writing-mode: vertical-rl;
+        transform: rotate(180deg);
+        font: 600 25px 'Roboto';
+      }
+
+      .lockers {
+        display: grid;
+        column-gap: 5px;
+        grid-template-columns: repeat(16, 1fr);
+        height: 370px;
+        place-items: center;
+
+        img {
+          border-radius: 6px;
+          cursor: pointer;
+        }
+      }
+    }
+  }
+}

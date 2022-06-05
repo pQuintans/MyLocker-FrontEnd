@@ -9,7 +9,7 @@ import NavBar from '../../components/NavBar'
 import Modal from '../../components/Modal/index'
 
 import NoLockersFoundedImg from '../../assets/NoLockersFounded.png'
-import LockerTestImage from '../../assets/LockerTestImage.png'
+import LockerTestImage from '../../assets/LockerImage.png'
 
 import './styles.scss'
 import toast, { Toaster } from 'react-hot-toast'

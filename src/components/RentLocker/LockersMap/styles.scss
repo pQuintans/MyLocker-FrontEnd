@@ -1,0 +1,45 @@
+
+#sections-map {
+  display: grid;
+  grid-template-columns: auto auto;
+  gap: 20px 5px;
+  border-radius: 50px;
+  width: fit-content;
+  place-items: center;
+
+  .in-section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: auto;
+
+    .locker-section {
+      height: 75px;
+      position: relative;
+
+      img {
+        height: 100%;
+        cursor: pointer;
+      }
+
+      &.active:after {
+        content:'';
+        display:block;
+        width: 80px;
+        height: 85px;
+
+        border-radius: 10px;
+
+        position: absolute;
+        left: 0;
+        top: 0;
+
+        transform: translate(-2.5px, -5px);
+        z-index: 5;
+        background-color: rgba(110, 200, 239, 0.58);
+      }
+    }
+
+
+  }
+}
