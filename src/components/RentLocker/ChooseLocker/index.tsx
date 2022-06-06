@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useRef } from 'react'
 import { Locker, SectionsTypes } from '../../../Pages/RentLockerPage'
 
 import LockerImage from '../../../assets/LockerImage.png'
@@ -11,52 +11,67 @@ interface ChooseLocker {
   changeSection: (sectionNumber: SectionsTypes) => void
   actualSection: number
   lockers: Locker[]
+  selectLocker: (locker: Locker) => void
 }
 
 export function ChooseLocker({
   lockers,
   changeSection,
   actualSection,
+  selectLocker,
 }: ChooseLocker) {
   const lockersRef = useRef<HTMLDivElement>(null)
 
-  const selectedLockers = lockers.reduce(
-    (selectedLockers: Locker[], locker) => {
+  function splitArrayInPieces(lockers: Locker[], tamanho: number) {
+    const lockersSplited = []
+    let i = 0
+    while (i < lockers.length) {
+      lockersSplited.push(lockers.slice(i, i + tamanho))
+      i += tamanho
+    }
+    return lockersSplited
+  }
+
+  const selectedLockers = splitArrayInPieces(
+    lockers.reduce((selectedLockers: Locker[], locker) => {
       if (locker.FK_section_id == actualSection) {
         selectedLockers.push(locker)
       }
       return selectedLockers
-    },
-    []
+    }, []),
+    8
   )
 
-  useEffect(() => {
-    lockersRef.current!.style.gridTemplateColumns = `repeat(${Math.round(
-      selectedLockers.length / 4
-    )}, 1fr)`
-  }, [actualSection])
-
   const lockersStyle = {
-    backgroundColor: selectedLockers[0].section.color,
+    backgroundColor: selectedLockers[0][0].section.color,
   }
 
   return (
     <>
       <div id='rent-lockers' className='choose-locker'>
         <div className='top-section'>
-          <p>{selectedLockers[0].section.left_room}</p>
+          <p>{selectedLockers[0][0].section.left_room}</p>
           <div className='lockers' ref={lockersRef}>
-            {selectedLockers.map(locker => {
+            {selectedLockers.map((lockersParsed, index) => {
               return (
-                <img
-                  style={lockersStyle}
-                  src={LockerImage}
-                  key={locker.number}
-                />
+                <div className='lockers-parsed' key={index}>
+                  {lockersParsed.map(locker => {
+                    return (
+                      <img
+                        style={lockersStyle}
+                        src={LockerImage}
+                        key={locker.number}
+                        onClick={() => {
+                          selectLocker(locker)
+                        }}
+                      />
+                    )
+                  })}
+                </div>
               )
             })}
           </div>
-          <p>{selectedLockers[0].section.right_room}</p>
+          <p>{selectedLockers[0][0].section.right_room}</p>
         </div>
         <SectionsMap
           actualSection={actualSection}
