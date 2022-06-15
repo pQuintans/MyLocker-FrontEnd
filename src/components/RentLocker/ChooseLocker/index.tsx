@@ -1,11 +1,14 @@
 import React, { useRef } from 'react'
-import { Locker, SectionsTypes } from '../../../Pages/RentLockerPage'
+import { SectionsTypes } from '../../../Pages/RentLockerPage'
 
 import LockerImage from '../../../assets/LockerImage.png'
 
+import SectionsMap from '../LockersMap'
+
+import { Locker } from '../../../contexts/LockerContext'
+
 import '../styles.scss'
 import './styles.scss'
-import SectionsMap from '../LockersMap'
 
 interface ChooseLocker {
   changeSection: (sectionNumber: SectionsTypes) => void

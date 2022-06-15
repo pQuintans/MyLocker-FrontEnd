@@ -10,32 +10,43 @@ import ContactPage from './Pages/ContactPage'
 import VerifyEmailPage from './Pages/VerifyEmailPage'
 import CreatePasswordPage from './Pages/CreatePasswordPage'
 import RentLockerPage from './Pages/RentLockerPage'
+import ConfirmRentPage from './Pages/ConfirmRentPage'
 
 import './global.scss'
 import { UserContextProvider } from './contexts/UserContext'
 import ProfilePage from './Pages/ProfilePage'
+import { LockerContextProvider } from './contexts/LockerContext'
 
 function App() {
   return (
-    <UserContextProvider>
-      <Router>
-        <ScrollToTop>
-          <Routes>
-            <Route path='/' element={<LandingPage />} />
-            <Route path='/login' element={<LoginPage />} />
-            <Route
-              path='/login/verificar-email'
-              element={<VerifyEmailPage />}
-            />
-            <Route path='/login/criar-senha' element={<CreatePasswordPage />} />
-            <Route path='/sobre-nos' element={<AboutUsPage />} />
-            <Route path='/contato' element={<ContactPage />} />
-            <Route path='/alugar-armario' element={<RentLockerPage />} />
-            <Route path='/perfil' element={<ProfilePage />} />
-          </Routes>
-        </ScrollToTop>
-      </Router>
-    </UserContextProvider>
+    <LockerContextProvider>
+      <UserContextProvider>
+        <Router>
+          <ScrollToTop>
+            <Routes>
+              <Route path='/' element={<LandingPage />} />
+              <Route path='/login' element={<LoginPage />} />
+              <Route
+                path='/login/verificar-email'
+                element={<VerifyEmailPage />}
+              />
+              <Route
+                path='/login/criar-senha'
+                element={<CreatePasswordPage />}
+              />
+              <Route path='/sobre-nos' element={<AboutUsPage />} />
+              <Route path='/contato' element={<ContactPage />} />
+              <Route path='/perfil' element={<ProfilePage />} />
+              <Route path='/alugar-armario' element={<RentLockerPage />} />
+              <Route
+                path='/alugar-armario/:lockersNumString'
+                element={<ConfirmRentPage />}
+              />
+            </Routes>
+          </ScrollToTop>
+        </Router>
+      </UserContextProvider>
+    </LockerContextProvider>
   )
 }
 

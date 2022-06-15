@@ -65,7 +65,7 @@ function NavBar({ smallNav }: NavBarTypes) {
               </Link>
             )}
 
-            {actualPage == '/alugar-armario' ? (
+            {actualPage.startsWith('/alugar-armario') ? (
               <Link to='/alugar-armario' className='link actual-page'>
                 Aluguel de Armários
               </Link>
