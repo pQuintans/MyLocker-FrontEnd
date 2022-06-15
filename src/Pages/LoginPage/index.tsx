@@ -1,8 +1,7 @@
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import toast, { Toaster } from 'react-hot-toast'
 import { useNavigate } from 'react-router-dom'
 import { AxiosResponse } from 'axios'
-import { compare } from 'bcryptjs'
 
 import NavBar from '../../components/NavBar'
 
@@ -25,23 +24,26 @@ function LoginPage() {
 
   function handleLogin(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
+    const requestBody = {
+      email: email,
+    }
     api
-      .get(`/students/${email}`)
+      .post('/students/verifyPassword', requestBody)
       .then((response: AxiosResponse) => {
-        const res: Student = response.data
-        if (res.password) {
+        const { hasPassword } = response.data
+
+        if (hasPassword) {
           setLoginWithEmailSucceed(true)
-          console.log(res)
-          setUser(res)
         } else {
           const requestBody = {
-            ra: res.ra,
-            email: res.email,
+            email: email,
           }
           api
             .put('/students/generate-code', requestBody)
             .then((response: AxiosResponse) => {
-              setUser({ ...res, code: response.data })
+              const { randomCode } = response.data
+              console.log(randomCode)
+              setUser({ ...user, code: randomCode })
             })
             .catch(err => {
               console.log(err.response.data)
@@ -52,6 +54,15 @@ function LoginPage() {
       .catch(err => {
         console.log(err.response.data)
       })
+    // api
+    //   .get(`/students/${email}`)
+    //   .then((response: AxiosResponse) => {
+    //     const res: Student = response.data
+
+    //   })
+    //   .catch(err => {
+    //     console.log(err.response.data)
+    //   })
   }
 
   async function handlePasswordVerification(
@@ -60,16 +71,20 @@ function LoginPage() {
     e.preventDefault()
     const password = passwordInput.current!.value
 
-    const passwordIsCorrect = await compare(password, user.password!)
+    // const passwordIsCorrect = await compare(password, user.password!)
 
-    if (passwordIsCorrect) {
-      toast.success('Login realizado com sucesso')
-      setTimeout(() => {
-        toast.dismiss()
-        navigate('/')
-      }, 1500)
-    }
+    // if (passwordIsCorrect) {
+    //   toast.success('Login realizado com sucesso')
+    //   setTimeout(() => {
+    //     toast.dismiss()
+    //     navigate('/')
+    //   }, 1500)
+    // }
   }
+
+  useEffect(() => {
+    console.log(user)
+  }, [user])
 
   return (
     <div id='login-page'>
