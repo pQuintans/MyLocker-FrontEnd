@@ -1,4 +1,6 @@
-import React, { useState, createContext, ReactNode } from 'react'
+import { AxiosResponse } from 'axios'
+import React, { useState, createContext, ReactNode, useEffect } from 'react'
+import api from '../api'
 
 export interface Student {
   ra: string
@@ -30,6 +32,17 @@ export function UserContextProvider({ children }: UserContextProviderProps) {
     last_name: '',
     email: '',
   })
+
+  useEffect(() => {
+    api
+      .get('/validate/students', { withCredentials: true })
+      .then((response: AxiosResponse) => {
+        setUser(response.data)
+      })
+      .catch(err => {
+        console.log(err.response.data)
+      })
+  }, [])
 
   return (
     <UserContext.Provider value={{ user, setUser }}>

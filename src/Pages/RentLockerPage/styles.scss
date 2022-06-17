@@ -81,6 +81,11 @@
 
             transition: filter 0.4s;
 
+            &.disabled-link {
+              pointer-events: none;
+              filter: grayscale(100%);
+            }
+
             &:hover {
               cursor: pointer;
               filter: grayscale(30%);

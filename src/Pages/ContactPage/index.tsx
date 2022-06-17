@@ -1,17 +1,70 @@
-import React from 'react'
-
+import React, { useEffect, useRef, useState } from 'react'
+import toast, { Toaster } from 'react-hot-toast'
 import { MdEmail, MdPhone } from 'react-icons/md'
 
 import Footer from '../../components/Footer'
 import NavBar from '../../components/NavBar'
+import { Loading } from '../../components/Loading/Loading'
+
+import { useUser } from '../../hooks/useUser'
 
 import ContactUsIlustration from '../../assets/ContactUsIlustration.png'
+
+import api from '../../api'
 
 import './styles.scss'
 
 function ContactPage() {
+  const { user, setUser } = useUser()
+
+  const [email, setEmail] = useState(user.email)
+  const [name, setName] = useState(user.first_name + ' ' + user.last_name)
+  const [loading, setLoading] = useState(false)
+
+  const messageRef = useRef<HTMLTextAreaElement>(null)
+
+  function handleEmailSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault()
+    const message = messageRef.current!.value
+
+    const requestBody = {
+      name,
+      email,
+      message,
+    }
+
+    setLoading(true)
+
+    api
+      .post('/contact', requestBody)
+      .then(() => {
+        messageRef.current!.value = ''
+        toast.success('Mensagem enviada com sucesso')
+        setLoading(false)
+      })
+      .catch(err => {
+        toast.error(err.response.data.erro)
+        setLoading(false)
+      })
+  }
+
+  useEffect(() => {
+    setEmail(user.email)
+    setName(user.first_name + ' ' + user.last_name)
+
+    if (user.email != '' && user.ra == '') {
+      setUser({
+        ra: '',
+        first_name: '',
+        last_name: '',
+        email: '',
+      })
+    }
+  }, [user])
+
   return (
     <div id='contact-page'>
+      <Toaster />
       <NavBar />
       <main>
         <div className='title-container'>
@@ -44,14 +97,36 @@ function ContactPage() {
             </div>
           </div>
           <div className='contact-body'>
-            <form>
-              <label htmlFor=''>Primeiro Nome</label>
-              <input type='text' id='input-first-name' />
-              <label htmlFor=''>Último Nome</label>
-              <input type='text' id='input-last-name' />
+            <form
+              onSubmit={(e: React.FormEvent<HTMLFormElement>) => {
+                handleEmailSubmit(e)
+              }}
+            >
+              <label htmlFor=''>E-mail institucional</label>
+              <input
+                type='text'
+                id='input-first-name'
+                value={email}
+                onChange={event => setEmail(event.target.value)}
+                disabled={user.email != ''}
+              />
+              <label htmlFor=''>Nome</label>
+              <input
+                type='text'
+                id='name'
+                value={name}
+                onChange={event => setName(event.target.value)}
+                disabled={user.first_name != ''}
+              />
               <label htmlFor=''>Mensagem</label>
-              <textarea id='input-message' />
-              <button type='button'>Enviar Mensagem</button>
+              <textarea
+                id='input-message'
+                ref={messageRef}
+                disabled={loading}
+              />
+              <button type='submit' className={loading ? 'loading' : ''}>
+                {loading ? <Loading /> : 'Enviar Mensagem'}
+              </button>
             </form>
           </div>
         </div>

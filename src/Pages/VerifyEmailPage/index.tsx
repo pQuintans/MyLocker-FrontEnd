@@ -1,4 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
+import toast, { Toaster } from 'react-hot-toast'
+import { useNavigate } from 'react-router-dom'
 
 import NavBar from '../../components/NavBar'
 
@@ -7,19 +9,52 @@ import Logo from '../../assets/LogoPainted.png'
 import { useUser } from '../../hooks/useUser'
 
 import './styles.scss'
-import toast, { Toaster } from 'react-hot-toast'
-import { useNavigate } from 'react-router-dom'
 
-interface handleCodeTypeProps {
-  event: React.KeyboardEvent<HTMLInputElement>
-  prevInput?: React.RefObject<HTMLInputElement>
-  nextInput?: React.RefObject<HTMLInputElement>
-}
+const ALLOWED_CHARACTERS = [
+  'a',
+  'b',
+  'c',
+  'd',
+  'e',
+  'f',
+  'g',
+  'h',
+  'i',
+  'j',
+  'k',
+  'l',
+  'm',
+  'n',
+  'o',
+  'p',
+  'q',
+  'r',
+  's',
+  'r',
+  't',
+  'u',
+  'v',
+  'w',
+  'x',
+  'y',
+  'z',
+  '1',
+  '2',
+  '3',
+  '4',
+  '5',
+  '6',
+  '7',
+  '8',
+  '9',
+  '0',
+]
 
 function VerifyLoginPage() {
   const { user } = useUser()
-  const [codeType, setCodeType] = useState('')
   const navigate = useNavigate()
+
+  const [codeType, setCodeType] = useState('')
 
   const input1 = useRef<HTMLInputElement>(null)
   const input2 = useRef<HTMLInputElement>(null)
@@ -27,12 +62,9 @@ function VerifyLoginPage() {
   const input4 = useRef<HTMLInputElement>(null)
   const input5 = useRef<HTMLInputElement>(null)
   const input6 = useRef<HTMLInputElement>(null)
+  const submitButton = useRef<HTMLButtonElement>(null)
 
-  function handleCodeType({
-    event,
-    prevInput,
-    nextInput,
-  }: handleCodeTypeProps) {
+  function handleCodeType() {
     const input1Value = input1.current!.value
     const input2Value = input2.current!.value
     const input3Value = input3.current!.value
@@ -48,23 +80,13 @@ function VerifyLoginPage() {
       input5Value +
       input6Value
 
-    setCodeType(actualCode)
-
-    if (prevInput) {
-      if (event.key === 'Backspace') {
-        prevInput.current?.focus()
-        return
-      }
-    }
-
-    if (nextInput) {
-      if (event.key !== 'Backspace') {
-        nextInput.current?.focus()
-      }
+    if (actualCode != codeType) {
+      setCodeType(actualCode)
     }
   }
 
   function handleCodeSubmit() {
+    handleCodeType()
     if (codeType == user.code) {
       toast.success('Verificação realizada com sucesso')
       setTimeout(() => {
@@ -78,6 +100,42 @@ function VerifyLoginPage() {
 
   useEffect(() => {
     toast.dismiss()
+
+    const inputs = [
+      input1.current!,
+      input2.current!,
+      input3.current!,
+      input4.current!,
+      input5.current!,
+      input6.current!,
+    ]
+
+    for (let i = 0; i < inputs.length; i++) {
+      inputs[i].addEventListener('keydown', function (event) {
+        if (event.key === 'Backspace') {
+          inputs[i].value = ''
+          if (i !== 0) inputs[i - 1].focus()
+        } else if (ALLOWED_CHARACTERS.includes(event.key.toLowerCase())) {
+          if (i === inputs.length - 1 && inputs[i].value !== '') {
+            event.preventDefault()
+            inputs[i].value = inputs[i].value.split('')[0]
+            submitButton.current!.focus()
+            return true
+          } else {
+            inputs[i].value = event.key
+            i !== inputs.length - 1
+              ? inputs[i + 1].focus()
+              : (submitButton.current!.focus(), handleCodeType())
+            event.preventDefault()
+          }
+        } else if (event.key === 'Enter' && i != inputs.length - 1) {
+          event.preventDefault()
+        } else {
+          inputs[i].value = inputs[i].value.charAt(0)
+          return true
+        }
+      })
+    }
   }, [])
 
   return (
@@ -104,81 +162,19 @@ function VerifyLoginPage() {
                 </div>
                 <div className='input-container'>
                   <div className='input-group'>
-                    <input
-                      type='text'
-                      step={1}
-                      ref={input1}
-                      onKeyUp={event =>
-                        handleCodeType({
-                          event: event,
-                          nextInput: input2,
-                        })
-                      }
-                    />
-                    <input
-                      type='text'
-                      ref={input2}
-                      step={1}
-                      onKeyUp={event =>
-                        handleCodeType({
-                          event: event,
-                          prevInput: input1,
-                          nextInput: input3,
-                        })
-                      }
-                    />
-                    <input
-                      type='text'
-                      ref={input3}
-                      step={1}
-                      onKeyUp={event =>
-                        handleCodeType({
-                          event: event,
-                          prevInput: input2,
-                          nextInput: input4,
-                        })
-                      }
-                    />
-                    <input
-                      type='text'
-                      ref={input4}
-                      step={1}
-                      onKeyUp={event =>
-                        handleCodeType({
-                          event: event,
-                          prevInput: input3,
-                          nextInput: input5,
-                        })
-                      }
-                    />
-                    <input
-                      type='text'
-                      ref={input5}
-                      step={1}
-                      onKeyUp={event =>
-                        handleCodeType({
-                          event: event,
-                          prevInput: input4,
-                          nextInput: input6,
-                        })
-                      }
-                    />
-                    <input
-                      type='text'
-                      ref={input6}
-                      step={1}
-                      onKeyUp={event =>
-                        handleCodeType({
-                          event: event,
-                          prevInput: input5,
-                        })
-                      }
-                    />
+                    <input type='text' ref={input1} onKeyUp={handleCodeType} />
+                    <input type='text' ref={input2} onKeyUp={handleCodeType} />
+                    <input type='text' ref={input3} onKeyUp={handleCodeType} />
+                    <input type='text' ref={input4} onKeyUp={handleCodeType} />
+                    <input type='text' ref={input5} onKeyUp={handleCodeType} />
+                    <input type='text' ref={input6} onKeyUp={handleCodeType} />
                   </div>
                   <p>Reenviar código</p>
                 </div>
               </div>
-              <button onClick={handleCodeSubmit}>Continuar</button>
+              <button onClick={handleCodeSubmit} ref={submitButton}>
+                Continuar
+              </button>
             </div>
           </form>
         </div>

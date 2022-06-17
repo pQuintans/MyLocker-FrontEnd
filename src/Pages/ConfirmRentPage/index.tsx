@@ -1,12 +1,16 @@
 import React, { useEffect, useRef } from 'react'
-import { useParams } from 'react-router-dom'
+import toast, { Toaster } from 'react-hot-toast'
+import { useNavigate, useParams } from 'react-router-dom'
 
 import Footer from '../../components/Footer'
 import NavBar from '../../components/NavBar'
 
+import { useLocker } from '../../hooks/useLocker'
+import { useUser } from '../../hooks/useUser'
+
 import LockerImage from '../../assets/LockerImage.png'
 
-import { useLocker } from '../../hooks/useLocker'
+import api from '../../api'
 
 import './styles.scss'
 
@@ -15,8 +19,10 @@ type ConfirmRentPageParams = {
 }
 
 function ConfirmRentPage() {
-  const params = useParams<ConfirmRentPageParams>()
+  const { user, setUser } = useUser()
   const { locker } = useLocker()
+  const params = useParams<ConfirmRentPageParams>()
+  const navigate = useNavigate()
 
   const selectedLockerImgRef = useRef<HTMLImageElement>(null)
   const colorSpanRef = useRef<HTMLSpanElement>(null)
@@ -29,6 +35,38 @@ function ConfirmRentPage() {
 
   if (isNaN(lockerNumber)) {
     return <div>404</div>
+  }
+
+  function handleLockerRent() {
+    const requestBodyStudent = {
+      ra: user.ra,
+      lockerNumber: lockerNumber,
+    }
+
+    const requestBodyLocker = {
+      lockerNumber: lockerNumber,
+      isRented: 1,
+    }
+
+    api.post('/lockers/set-is-rented', requestBodyLocker).catch(err => {
+      toast.error(err.response.data.erro)
+    })
+
+    api
+      .post('/students/update-locker-number', requestBodyStudent, {
+        withCredentials: true,
+      })
+      .then(response => {
+        setUser(response.data)
+        toast.success('Armário alugado com sucesso')
+        setTimeout(() => {
+          toast.dismiss()
+          navigate('/')
+        }, 1500)
+      })
+      .catch(err => {
+        toast.error(err.response.data.erro)
+      })
   }
 
   useEffect(() => {
@@ -53,6 +91,7 @@ function ConfirmRentPage() {
 
   return (
     <div id='confirm-rent-page'>
+      <Toaster />
       <NavBar />
       <main>
         <div className='title-container'>
@@ -117,7 +156,7 @@ function ConfirmRentPage() {
                   <p>Total</p>
                   <p>R$100,00</p>
                 </div>
-                <button>Finalizar Compra</button>
+                <button onClick={handleLockerRent}>Finalizar Compra</button>
               </div>
             </div>
           </div>

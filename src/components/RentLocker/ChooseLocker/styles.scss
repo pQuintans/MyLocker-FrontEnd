@@ -36,6 +36,10 @@
           img {
             border-radius: 6px;
             cursor: pointer;
+
+            &.rented {
+              filter: brightness(50%);
+            }
           }
         }
 

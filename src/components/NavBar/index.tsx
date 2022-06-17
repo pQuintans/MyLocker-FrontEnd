@@ -1,16 +1,17 @@
 import React, { useRef } from 'react'
-
-import { Link, useLocation } from 'react-router-dom'
-import { alpha, styled, Switch } from '@mui/material'
-import { common } from '@mui/material/colors'
-
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { CgProfile } from 'react-icons/cg'
 import { BsMoonFill } from 'react-icons/bs'
 import { MdOutlineLogout } from 'react-icons/md'
+import { alpha, styled, Switch } from '@mui/material'
+import { common } from '@mui/material/colors'
+
+import { useUser } from '../../hooks/useUser'
 
 import UnicampLogo from '../../assets/UnicampLogo.svg'
 import DefaultProfilePic from '../../assets/DefaultProfilePicture.jpg'
-import { useUser } from '../../hooks/useUser'
+
+import api from '../../api'
 
 import './styles.scss'
 
@@ -19,10 +20,13 @@ type NavBarTypes = {
 }
 
 function NavBar({ smallNav }: NavBarTypes) {
-  const { user } = useUser()
+  const { user, setUser } = useUser()
   const { pathname: actualPage } = useLocation()
-  const label = { inputProps: { 'aria-label': 'Switch demo' } }
+  const navigate = useNavigate()
+
   const dropdown = useRef<HTMLDivElement>(null)
+
+  const label = { inputProps: { 'aria-label': 'Switch demo' } }
 
   const StyledSwitch = styled(Switch)(({ theme }) => ({
     '& .MuiSwitch-switchBase.Mui-checked': {
@@ -44,6 +48,18 @@ function NavBar({ smallNav }: NavBarTypes) {
     } else {
       dropdown.current!.style.display = 'none'
     }
+  }
+
+  function handleLogout() {
+    api.get('/logout/students', { withCredentials: true }).then(() => {
+      setUser({
+        ra: '',
+        first_name: '',
+        last_name: '',
+        email: '',
+      })
+      navigate('/')
+    })
   }
 
   return (
@@ -131,7 +147,9 @@ function NavBar({ smallNav }: NavBarTypes) {
                   </div>
                   <div className='dropdown-content'>
                     <MdOutlineLogout />
-                    <p>Sair</p>
+                    <p onClick={handleLogout} className='logout-button'>
+                      Sair
+                    </p>
                   </div>
                 </div>
               </div>

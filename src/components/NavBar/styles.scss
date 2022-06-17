@@ -109,6 +109,10 @@ nav{
             gap: 10px;
             z-index: 2;
 
+            .logout-button {
+              cursor: pointer;
+            }
+
             &.actual-page {
               color: rgb(114, 114, 114);
 
@@ -120,8 +124,6 @@ nav{
             a {
               text-decoration: none;
               color: #464646;
-
-
             }
 
             svg {

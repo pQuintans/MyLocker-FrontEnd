@@ -11,11 +11,12 @@ import VerifyEmailPage from './Pages/VerifyEmailPage'
 import CreatePasswordPage from './Pages/CreatePasswordPage'
 import RentLockerPage from './Pages/RentLockerPage'
 import ConfirmRentPage from './Pages/ConfirmRentPage'
+import ProfilePage from './Pages/ProfilePage'
+
+import { UserContextProvider } from './contexts/UserContext'
+import { LockerContextProvider } from './contexts/LockerContext'
 
 import './global.scss'
-import { UserContextProvider } from './contexts/UserContext'
-import ProfilePage from './Pages/ProfilePage'
-import { LockerContextProvider } from './contexts/LockerContext'
 
 function App() {
   return (

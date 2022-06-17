@@ -1,24 +1,27 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useRef, useState } from 'react'
 import toast, { Toaster } from 'react-hot-toast'
 import { useNavigate } from 'react-router-dom'
 import { AxiosResponse } from 'axios'
 
 import NavBar from '../../components/NavBar'
+import { Loading } from '../../components/Loading/Loading'
+
+import { useUser } from '../../hooks/useUser'
 
 import Logo from '../../assets/LogoPainted.png'
 
 import api from '../../api'
-import { useUser } from '../../hooks/useUser'
-import { Student } from '../../contexts/UserContext'
 
 import './styles.scss'
+
 function LoginPage() {
   const { user, setUser } = useUser()
+  const navigate = useNavigate()
 
   const [loginWithEmailSucceed, setLoginWithEmailSucceed] = useState(false)
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const navigate = useNavigate()
+  const [loading, setLoading] = useState(false)
 
   const passwordInput = useRef<HTMLInputElement>(null)
 
@@ -28,41 +31,30 @@ function LoginPage() {
       email: email,
     }
     api
-      .post('/students/verifyPassword', requestBody)
+      .post('/students/verifyPasswordExistence', requestBody)
       .then((response: AxiosResponse) => {
         const { hasPassword } = response.data
 
         if (hasPassword) {
           setLoginWithEmailSucceed(true)
         } else {
-          const requestBody = {
-            email: email,
-          }
+          setLoading(true)
           api
             .put('/students/generate-code', requestBody)
             .then((response: AxiosResponse) => {
               const { randomCode } = response.data
-              console.log(randomCode)
-              setUser({ ...user, code: randomCode })
+              setUser({ ...user, email: email, code: randomCode })
+              setLoading(false)
+              navigate('/login/verificar-email')
             })
             .catch(err => {
-              console.log(err.response.data)
+              toast.error(err.response.data.erro)
             })
-          navigate('/login/verificar-email')
         }
       })
       .catch(err => {
-        console.log(err.response.data)
+        toast.error(err.response.data.erro)
       })
-    // api
-    //   .get(`/students/${email}`)
-    //   .then((response: AxiosResponse) => {
-    //     const res: Student = response.data
-
-    //   })
-    //   .catch(err => {
-    //     console.log(err.response.data)
-    //   })
   }
 
   async function handlePasswordVerification(
@@ -71,20 +63,25 @@ function LoginPage() {
     e.preventDefault()
     const password = passwordInput.current!.value
 
-    // const passwordIsCorrect = await compare(password, user.password!)
+    const requestBody = {
+      email: email,
+      password: password,
+    }
 
-    // if (passwordIsCorrect) {
-    //   toast.success('Login realizado com sucesso')
-    //   setTimeout(() => {
-    //     toast.dismiss()
-    //     navigate('/')
-    //   }, 1500)
-    // }
+    api
+      .post('/students/session', requestBody, { withCredentials: true })
+      .then((response: AxiosResponse) => {
+        setUser(response.data)
+        toast.success('Login realizado com sucesso')
+        setTimeout(() => {
+          toast.dismiss()
+          navigate('/')
+        }, 1500)
+      })
+      .catch(err => {
+        toast.error(err.response.data.erro)
+      })
   }
-
-  useEffect(() => {
-    console.log(user)
-  }, [user])
 
   return (
     <div id='login-page'>
@@ -112,7 +109,9 @@ function LoginPage() {
                   <p>Esqueceu seu e-mail?</p>
                 </div>
               </div>
-              <button type='submit'>Continuar</button>
+              <button type='submit' className={loading ? 'loading' : ''}>
+                {loading ? <Loading /> : 'Continuar'}
+              </button>
             </div>
           </form>
         </div>
@@ -129,7 +128,7 @@ function LoginPage() {
                 <div className='text-container'>
                   <p className='title'>Entrar</p>
                   <p className='subtitle'>Digite sua senha para fazer login</p>
-                  <p className='email'>cl200146@g.unicamp.br</p>
+                  <p className='email'>{email}</p>
                 </div>
                 <div className='input-container'>
                   <input
@@ -142,7 +141,9 @@ function LoginPage() {
                   <p>Esqueceu sua senha?</p>
                 </div>
               </div>
-              <button type='submit'>Continuar</button>
+              <button type='submit' className={loading ? 'loading' : ''}>
+                {loading ? <Loading /> : 'Continuar'}
+              </button>
             </div>
           </form>
         </div>

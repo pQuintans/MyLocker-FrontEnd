@@ -1,11 +1,11 @@
 import React, { useRef } from 'react'
-import { SectionsTypes } from '../../../Pages/RentLockerPage'
-
-import LockerImage from '../../../assets/LockerImage.png'
 
 import SectionsMap from '../LockersMap'
 
+import { SectionsTypes } from '../../../Pages/RentLockerPage'
 import { Locker } from '../../../contexts/LockerContext'
+
+import LockerImage from '../../../assets/LockerImage.png'
 
 import '../styles.scss'
 import './styles.scss'
@@ -62,6 +62,7 @@ export function ChooseLocker({
                     return (
                       <img
                         style={lockersStyle}
+                        className={locker.isRented ? 'rented' : ''}
                         src={LockerImage}
                         key={locker.number}
                         onClick={() => {

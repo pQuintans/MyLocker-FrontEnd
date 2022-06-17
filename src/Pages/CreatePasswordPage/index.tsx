@@ -1,23 +1,23 @@
 import React, { useEffect, useRef } from 'react'
+import toast, { Toaster } from 'react-hot-toast'
 import { useNavigate } from 'react-router-dom'
 
 import NavBar from '../../components/NavBar'
 
+import { useUser } from '../../hooks/useUser'
+
 import Logo from '../../assets/LogoPainted.png'
+
+import api from '../../api'
 
 import './styles.scss'
 
-import api from '../../api'
-import { useUser } from '../../hooks/useUser'
-import toast, { Toaster } from 'react-hot-toast'
-
 function VerifyLoginPage() {
   const { user, setUser } = useUser()
+  const navigate = useNavigate()
 
   const passwordInput = useRef<HTMLInputElement>(null)
   const passwordConfirmationInput = useRef<HTMLInputElement>(null)
-
-  const navigate = useNavigate()
 
   function handleCreatePassword() {
     const password = passwordInput.current!.value
@@ -42,12 +42,12 @@ function VerifyLoginPage() {
 
     if (passwordsMatches) {
       const requestBody = {
-        ra: user.ra,
+        email: user.email,
         password: password,
       }
 
       api
-        .put('/students/set-password', requestBody)
+        .put('/students/update-password', requestBody)
         .then(() => {
           setUser({
             ra: '',
@@ -66,7 +66,7 @@ function VerifyLoginPage() {
           }, 1500)
         })
         .catch(err => {
-          console.log(err.response.data)
+          toast.error(err.response.data.erro)
         })
     }
   }

@@ -252,6 +252,11 @@
 
           .left-section {
             display: flex;
+            width: 50%;
+
+            img {
+              border-radius: 10px;
+            }
 
             .left-section-content {
               margin-left: 30px;
@@ -292,8 +297,7 @@
                 margin-left: 10px;
                 height: 20px;
                 width: 20px;
-                border-radius: 8px;
-                background: #FF7B7B;
+                border-radius: 5px;
               }
             }
           }

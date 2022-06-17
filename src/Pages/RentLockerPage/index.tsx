@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react'
+import toast, { Toaster } from 'react-hot-toast'
 import { Link } from 'react-router-dom'
 import { AxiosResponse } from 'axios'
 
@@ -8,20 +9,22 @@ import Footer from '../../components/Footer'
 import NavBar from '../../components/NavBar'
 import Modal from '../../components/Modal'
 
+import { Locker } from '../../contexts/LockerContext'
+import { useUser } from '../../hooks/useUser'
+import { useLocker } from '../../hooks/useLocker'
+
+import LockerImage from '../../assets/LockerImage.png'
+
 import api from '../../api'
 
 import './styles.scss'
 
-import LockerImage from '../../assets/LockerImage.png'
-
-import { useUser } from '../../hooks/useUser'
-import { Locker } from '../../contexts/LockerContext'
-import { useLocker } from '../../hooks/useLocker'
-
 export type SectionsTypes = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8
 
 function RentLockerPage() {
+  const { user } = useUser()
   const { setLocker } = useLocker()
+
   const [sectionChoosed, setSectionChoosed] = useState<SectionsTypes | null>(
     null
   )
@@ -33,8 +36,6 @@ function RentLockerPage() {
   const colorSpanRef = useRef<HTMLSpanElement>(null)
   const disponibilitySpanRef = useRef<HTMLSpanElement>(null)
 
-  const { user } = useUser()
-
   function loadSections() {
     api
       .get('/lockers')
@@ -42,29 +43,9 @@ function RentLockerPage() {
         setLockers(response.data)
       })
       .catch(err => {
-        console.log(err.response.data)
+        toast.error(err.response.data.erro)
       })
   }
-
-  useEffect(() => {
-    loadSections()
-  }, [])
-
-  useEffect(() => {
-    if (selectedLocker != null) {
-      selectedLockerImgRef.current!.style.backgroundColor =
-        selectedLocker.section.color
-
-      colorSpanRef.current!.style.backgroundColor = selectedLocker.section.color
-      let color
-      if (selectedLocker.isRented == true) {
-        color = '#db1717'
-      } else {
-        color = '#26DB17'
-      }
-      disponibilitySpanRef.current!.style.backgroundColor = color
-    }
-  }, [selectedLocker])
 
   function handleChangeLockerModalState() {
     if (lockerModalIsOpen) {
@@ -94,8 +75,29 @@ function RentLockerPage() {
     }
   }
 
+  useEffect(() => {
+    loadSections()
+  }, [])
+
+  useEffect(() => {
+    if (selectedLocker != null) {
+      selectedLockerImgRef.current!.style.backgroundColor =
+        selectedLocker.section.color
+
+      colorSpanRef.current!.style.backgroundColor = selectedLocker.section.color
+      let color
+      if (selectedLocker.isRented == true) {
+        color = '#db1717'
+      } else {
+        color = '#26DB17'
+      }
+      disponibilitySpanRef.current!.style.backgroundColor = color
+    }
+  }, [selectedLocker])
+
   return (
     <div id='rent-locker-page'>
+      <Toaster />
       <Modal open={lockerModalIsOpen} closeModal={handleChangeLockerModalState}>
         <div className='modal-container locker-modal'>
           <img ref={selectedLockerImgRef} src={LockerImage} />
@@ -147,12 +149,29 @@ function RentLockerPage() {
                   <Link
                     to={`/alugar-armario/${selectedLocker!.number}`}
                     onClick={handleChangeLockerModalState}
+                    className={
+                      user.locker_number || selectedLocker!.isRented
+                        ? 'disabled-link'
+                        : ''
+                    }
                   >
-                    Quero Alugar!
+                    {user.locker_number
+                      ? selectedLocker!.number == user.locker_number
+                        ? 'Este é o seu armário :)'
+                        : 'Você já possui um armário'
+                      : !selectedLocker!.isRented
+                      ? 'Quero Alugar!'
+                      : 'Armário indisponível'}
                   </Link>
                 ) : (
-                  <Link to='/login' onClick={handleChangeLockerModalState}>
-                    Fazer login!
+                  <Link
+                    to='/login'
+                    className={selectedLocker!.isRented ? 'disabled-link' : ''}
+                    onClick={handleChangeLockerModalState}
+                  >
+                    {selectedLocker!.isRented
+                      ? 'Armário indisponível!'
+                      : 'Fazer login!'}
                   </Link>
                 )}
               </div>{' '}
