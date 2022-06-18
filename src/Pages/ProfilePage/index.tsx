@@ -17,6 +17,7 @@ import DefaultProfilePic from '../../assets/DefaultProfilePicture.jpg'
 import api from '../../api'
 
 import './styles.scss'
+import { Loading } from '../../components/Loading/Loading'
 
 function ProfilePage() {
   const { user, setUser } = useUser()
@@ -28,6 +29,7 @@ function ProfilePage() {
   const [newProfilePicture, setNewProfilePicture] = useState('')
   const [studentLocker, setStudentLocker] = useState<Locker | null>(null)
   const [selectedImage, setSelectedImage] = useState<File>()
+  const [loading, setLoading] = useState(false)
 
   const oldPasswordInputRef = useRef<HTMLInputElement>(null)
   const newPasswordInputRef = useRef<HTMLInputElement>(null)
@@ -59,7 +61,8 @@ function ProfilePage() {
     }
   }
 
-  async function handleChangePassword() {
+  async function handleChangePassword(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault()
     const oldPassword = oldPasswordInputRef.current!.value
     const newPassword = newPasswordInputRef.current!.value
     const newPasswordConfirm = newPasswordConfirmationInputRef.current!.value
@@ -77,13 +80,17 @@ function ProfilePage() {
       oldPassword: oldPassword,
     }
 
+    setLoading(true)
+
     api
       .put('/students/update-password', requestBody)
       .then(() => {
         toast.success('Senha alterada com sucesso')
+        setLoading(false)
         handleChangePasswordModalChangeState()
       })
       .catch(err => {
+        setLoading(false)
         toast.error(err.response.data.erro)
       })
   }
@@ -101,13 +108,16 @@ function ProfilePage() {
       const formData = new FormData()
       formData.append('profile', selectedImage)
       formData.append('ra', user.ra)
+      setLoading(true)
       api
         .post('/upload', formData, { withCredentials: true })
         .then(res => {
           setUser(res.data)
+          setLoading(false)
           handleChangeProfilePictureModalChangeState()
         })
         .catch(err => {
+          setLoading(false)
           toast.error(err.response.data.erro)
         })
     }
@@ -160,7 +170,11 @@ function ProfilePage() {
           <div className='modal-container'>
             <img
               src={
-                newProfilePicture ? newProfilePicture : user.profile_picture_url
+                newProfilePicture
+                  ? newProfilePicture
+                  : user.profile_picture_url
+                  ? user.profile_picture_url
+                  : DefaultProfilePic
               }
               alt='Foto de perfil'
             />
@@ -177,7 +191,12 @@ function ProfilePage() {
               >
                 Selecionar Outra Foto
               </button>
-              <button onClick={handleUploadImage}>Confirmar Escolha</button>
+              <button
+                onClick={handleUploadImage}
+                className={loading ? 'loading' : ''}
+              >
+                {loading ? <Loading /> : 'Confirmar Escolha'}
+              </button>
             </div>
           </div>
         </Modal>
@@ -192,7 +211,12 @@ function ProfilePage() {
                 <AiOutlineClose />
               </button>
             </div>
-            <div className='body'>
+            <form
+              className='body'
+              onSubmit={(e: React.FormEvent<HTMLFormElement>) => {
+                handleChangePassword(e)
+              }}
+            >
               <input
                 placeholder='Senha antiga'
                 type='text'
@@ -209,8 +233,11 @@ function ProfilePage() {
                 type='text'
                 ref={newPasswordConfirmationInputRef}
               />
-              <button onClick={handleChangePassword}>Continuar</button>
-            </div>
+
+              <button type='submit' className={loading ? 'loading' : ''}>
+                {loading ? <Loading /> : 'Continuar'}
+              </button>
+            </form>
           </div>
         </Modal>
 

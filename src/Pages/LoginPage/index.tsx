@@ -30,6 +30,9 @@ function LoginPage() {
     const requestBody = {
       email: email,
     }
+
+    setLoading(true)
+
     api
       .post('/students/verifyPasswordExistence', requestBody)
       .then((response: AxiosResponse) => {
@@ -37,15 +40,19 @@ function LoginPage() {
 
         if (hasPassword) {
           setLoginWithEmailSucceed(true)
+          setLoading(false)
         } else {
-          setLoading(true)
           api
             .put('/students/generate-code', requestBody)
             .then((response: AxiosResponse) => {
               const { randomCode } = response.data
               setUser({ ...user, email: email, code: randomCode })
               setLoading(false)
-              navigate('/login/verificar-email')
+              toast.success('Bem vindo ao MyLocker - Crie sua senha!')
+              setTimeout(() => {
+                toast.dismiss()
+                navigate('/login/verificar-email')
+              }, 1500)
             })
             .catch(err => {
               toast.error(err.response.data.erro)
@@ -53,6 +60,7 @@ function LoginPage() {
         }
       })
       .catch(err => {
+        setLoading(false)
         toast.error(err.response.data.erro)
       })
   }
@@ -68,10 +76,13 @@ function LoginPage() {
       password: password,
     }
 
+    setLoading(true)
+
     api
       .post('/students/session', requestBody, { withCredentials: true })
       .then((response: AxiosResponse) => {
         setUser(response.data)
+        setLoading(false)
         toast.success('Login realizado com sucesso')
         setTimeout(() => {
           toast.dismiss()
@@ -79,6 +90,7 @@ function LoginPage() {
         }, 1500)
       })
       .catch(err => {
+        setLoading(false)
         toast.error(err.response.data.erro)
       })
   }

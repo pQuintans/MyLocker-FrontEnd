@@ -1,8 +1,9 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import toast, { Toaster } from 'react-hot-toast'
 import { useNavigate } from 'react-router-dom'
 
 import NavBar from '../../components/NavBar'
+import { Loading } from '../../components/Loading/Loading'
 
 import { useUser } from '../../hooks/useUser'
 
@@ -16,10 +17,13 @@ function VerifyLoginPage() {
   const { user, setUser } = useUser()
   const navigate = useNavigate()
 
+  const [loading, setLoading] = useState(false)
+
   const passwordInput = useRef<HTMLInputElement>(null)
   const passwordConfirmationInput = useRef<HTMLInputElement>(null)
 
-  function handleCreatePassword() {
+  function handleCreatePassword(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault()
     const password = passwordInput.current!.value
     const passwordConfirm = passwordConfirmationInput.current!.value
     const regex = new RegExp(/(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])/)
@@ -46,6 +50,8 @@ function VerifyLoginPage() {
         password: password,
       }
 
+      setLoading(true)
+
       api
         .put('/students/update-password', requestBody)
         .then(() => {
@@ -60,6 +66,7 @@ function VerifyLoginPage() {
             status: undefined,
           })
           toast.success('Senha criada com sucesso')
+          setLoading(false)
           setTimeout(() => {
             toast.dismiss()
             navigate('/login')
@@ -67,6 +74,7 @@ function VerifyLoginPage() {
         })
         .catch(err => {
           toast.error(err.response.data.erro)
+          setLoading(false)
         })
     }
   }
@@ -83,7 +91,7 @@ function VerifyLoginPage() {
         <div className='form-container'>
           <form
             onSubmit={(e: React.FormEvent<HTMLFormElement>) => {
-              e.preventDefault()
+              handleCreatePassword(e)
             }}
           >
             <img src={Logo} alt='MyLocker' />
@@ -108,7 +116,9 @@ function VerifyLoginPage() {
                   </div>
                 </div>
               </div>
-              <button onClick={handleCreatePassword}>Continuar</button>
+              <button type='submit' className={loading ? 'loading' : ''}>
+                {loading ? <Loading /> : 'Continuar'}
+              </button>
             </div>
           </form>
         </div>

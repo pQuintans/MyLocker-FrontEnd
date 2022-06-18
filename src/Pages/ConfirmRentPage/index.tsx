@@ -1,9 +1,10 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import toast, { Toaster } from 'react-hot-toast'
 import { useNavigate, useParams } from 'react-router-dom'
 
 import Footer from '../../components/Footer'
 import NavBar from '../../components/NavBar'
+import { Loading } from '../../components/Loading/Loading'
 
 import { useLocker } from '../../hooks/useLocker'
 import { useUser } from '../../hooks/useUser'
@@ -23,6 +24,8 @@ function ConfirmRentPage() {
   const { locker } = useLocker()
   const params = useParams<ConfirmRentPageParams>()
   const navigate = useNavigate()
+
+  const [loading, setLoading] = useState(false)
 
   const selectedLockerImgRef = useRef<HTMLImageElement>(null)
   const colorSpanRef = useRef<HTMLSpanElement>(null)
@@ -48,6 +51,8 @@ function ConfirmRentPage() {
       isRented: 1,
     }
 
+    setLoading(true)
+
     api.post('/lockers/set-is-rented', requestBodyLocker).catch(err => {
       toast.error(err.response.data.erro)
     })
@@ -59,6 +64,7 @@ function ConfirmRentPage() {
       .then(response => {
         setUser(response.data)
         toast.success('Armário alugado com sucesso')
+        setLoading(false)
         setTimeout(() => {
           toast.dismiss()
           navigate('/')
@@ -156,7 +162,12 @@ function ConfirmRentPage() {
                   <p>Total</p>
                   <p>R$100,00</p>
                 </div>
-                <button onClick={handleLockerRent}>Finalizar Compra</button>
+                <button
+                  onClick={handleLockerRent}
+                  className={loading ? 'loading' : ''}
+                >
+                  {loading ? <Loading /> : 'Finalizar Compra'}
+                </button>
               </div>
             </div>
           </div>

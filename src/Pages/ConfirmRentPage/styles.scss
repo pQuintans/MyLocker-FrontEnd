@@ -164,6 +164,11 @@
             transition: filter 0.4s;
             // transition: opacity 0.2s;
 
+            &.loading {
+              pointer-events: none;
+              filter: grayscale(50);
+            }
+
             &:hover {
               cursor: pointer;
               filter: grayscale(30%);
