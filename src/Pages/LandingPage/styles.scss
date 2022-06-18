@@ -1,4 +1,11 @@
 #LandingPage {
+  &.dark {
+    background: #202124;
+    main img {
+      filter: brightness(70%)
+    }
+  }
+
   width: calc(100vw - var(--scrollbarWidth));
 
   main {

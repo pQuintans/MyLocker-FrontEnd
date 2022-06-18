@@ -9,6 +9,7 @@ import LockerImage from '../../../assets/LockerImage.png'
 
 import '../styles.scss'
 import './styles.scss'
+import { useDarkTheme } from '../../../hooks/useDarkTheme'
 
 interface ChooseLocker {
   changeSection: (sectionNumber: SectionsTypes) => void
@@ -23,6 +24,7 @@ export function ChooseLocker({
   actualSection,
   selectLocker,
 }: ChooseLocker) {
+  const { darkTheme } = useDarkTheme()
   const lockersRef = useRef<HTMLDivElement>(null)
 
   function splitArrayInPieces(lockers: Locker[], tamanho: number) {
@@ -51,7 +53,10 @@ export function ChooseLocker({
 
   return (
     <>
-      <div id='rent-lockers' className='choose-locker'>
+      <div
+        id='rent-lockers'
+        className={(darkTheme ? 'dark' : '') + ' choose-locker '}
+      >
         <div className='top-section'>
           <p>{selectedLockers[0][0].section.left_room}</p>
           <div className='lockers' ref={lockersRef}>
@@ -60,15 +65,20 @@ export function ChooseLocker({
                 <div className='lockers-parsed' key={index}>
                   {lockersParsed.map(locker => {
                     return (
-                      <img
-                        style={lockersStyle}
-                        className={locker.isRented ? 'rented' : ''}
-                        src={LockerImage}
+                      <div
+                        className={
+                          'img-container' + (locker.isRented ? ' rented' : '')
+                        }
                         key={locker.number}
-                        onClick={() => {
-                          selectLocker(locker)
-                        }}
-                      />
+                        style={lockersStyle}
+                      >
+                        <img
+                          src={LockerImage}
+                          onClick={() => {
+                            selectLocker(locker)
+                          }}
+                        />
+                      </div>
                     )
                   })}
                 </div>

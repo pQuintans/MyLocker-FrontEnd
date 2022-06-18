@@ -5,10 +5,14 @@ import { useNavigate } from 'react-router-dom'
 import NavBar from '../../components/NavBar'
 
 import Logo from '../../assets/LogoPainted.png'
+import LogoWhite from '../../assets/LogoPaintedWhite.png'
 
 import { useUser } from '../../hooks/useUser'
 
 import './styles.scss'
+import { useDarkTheme } from '../../hooks/useDarkTheme'
+import api from '../../api'
+import { AxiosResponse } from 'axios'
 
 const ALLOWED_CHARACTERS = [
   'a',
@@ -51,7 +55,8 @@ const ALLOWED_CHARACTERS = [
 ]
 
 function VerifyLoginPage() {
-  const { user } = useUser()
+  const { user, setUser } = useUser()
+  const { darkTheme } = useDarkTheme()
   const navigate = useNavigate()
 
   const [codeType, setCodeType] = useState('')
@@ -138,12 +143,39 @@ function VerifyLoginPage() {
     }
   }, [])
 
+  function handleCodeResubmit() {
+    const requestBody = {
+      email: user.email,
+    }
+
+    toast.loading('Reenviando código...')
+
+    api
+      .put('/students/generate-code', requestBody)
+      .then((response: AxiosResponse) => {
+        const { randomCode } = response.data
+        setUser({ ...user, code: randomCode })
+        toast.dismiss()
+        toast.success('Código reenviado!')
+      })
+      .catch(err => {
+        toast.error(err.response.data.erro)
+      })
+  }
+
   return (
     <>
       <div>
-        <Toaster />
+        <Toaster
+          toastOptions={{
+            style: {
+              background: darkTheme ? '#333' : '#fff',
+              color: darkTheme ? '#fff' : '#000',
+            },
+          }}
+        />
       </div>
-      <div id='verify-email-page'>
+      <div id='verify-email-page' className={darkTheme ? 'dark' : ''}>
         <NavBar smallNav={true} />
         <div className='form-container'>
           <form
@@ -151,7 +183,7 @@ function VerifyLoginPage() {
               e.preventDefault()
             }}
           >
-            <img src={Logo} alt='MyLocker' />
+            <img src={darkTheme ? LogoWhite : Logo} alt='MyLocker' />
             <div className='bottom-section'>
               <div className='content'>
                 <div className='text-container'>
@@ -169,7 +201,7 @@ function VerifyLoginPage() {
                     <input type='text' ref={input5} onKeyUp={handleCodeType} />
                     <input type='text' ref={input6} onKeyUp={handleCodeType} />
                   </div>
-                  <p>Reenviar código</p>
+                  <p onClick={handleCodeResubmit}>Reenviar código</p>
                 </div>
               </div>
               <button onClick={handleCodeSubmit} ref={submitButton}>

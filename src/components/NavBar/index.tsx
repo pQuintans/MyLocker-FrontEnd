@@ -3,17 +3,19 @@ import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { CgProfile } from 'react-icons/cg'
 import { BsMoonFill } from 'react-icons/bs'
 import { MdOutlineLogout } from 'react-icons/md'
-import { alpha, styled, Switch } from '@mui/material'
-import { common } from '@mui/material/colors'
+import { Switch } from '@mui/material'
 
 import { useUser } from '../../hooks/useUser'
 
 import UnicampLogo from '../../assets/UnicampLogo.svg'
+import UnicampWhiteLogo from '../../assets/UnicampWhiteLogo.svg'
 import DefaultProfilePic from '../../assets/DefaultProfilePicture.jpg'
+import DefaultProfilePicDarkMode from '../../assets/DefaultProfilePictureDarkMode.jpg'
 
 import api from '../../api'
 
 import './styles.scss'
+import { useDarkTheme } from '../../hooks/useDarkTheme'
 
 type NavBarTypes = {
   smallNav?: boolean
@@ -21,24 +23,15 @@ type NavBarTypes = {
 
 function NavBar({ smallNav }: NavBarTypes) {
   const { user, setUser } = useUser()
+  const { darkTheme, setDarkTheme } = useDarkTheme()
   const { pathname: actualPage } = useLocation()
   const navigate = useNavigate()
 
   const dropdown = useRef<HTMLDivElement>(null)
 
-  const label = { inputProps: { 'aria-label': 'Switch demo' } }
-
-  const StyledSwitch = styled(Switch)(({ theme }) => ({
-    '& .MuiSwitch-switchBase.Mui-checked': {
-      color: common.black,
-      '&:hover': {
-        backgroundColor: alpha(common.black, theme.palette.action.hoverOpacity),
-      },
-    },
-    '& .MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track': {
-      backgroundColor: common.black,
-    },
-  }))
+  const handleThemeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setDarkTheme(event.target.checked)
+  }
 
   function handleDropdown() {
     const dropdownDisplay = dropdown.current!.style.display
@@ -63,7 +56,7 @@ function NavBar({ smallNav }: NavBarTypes) {
   }
 
   return (
-    <nav>
+    <nav className={darkTheme ? 'dark' : ''}>
       <div className='nav-header'>
         <p>Colégio Técnico de Limeira</p>
       </div>
@@ -92,7 +85,7 @@ function NavBar({ smallNav }: NavBarTypes) {
             )}
           </div>
           <img
-            src={UnicampLogo}
+            src={darkTheme ? UnicampWhiteLogo : UnicampLogo}
             alt='Logo da Unicamp'
             className='unicamp-logo'
           />
@@ -122,6 +115,8 @@ function NavBar({ smallNav }: NavBarTypes) {
                   src={
                     user.profile_picture_url
                       ? user.profile_picture_url
+                      : darkTheme
+                      ? DefaultProfilePicDarkMode
                       : DefaultProfilePic
                   }
                   alt='Foto de Perfil'
@@ -143,7 +138,11 @@ function NavBar({ smallNav }: NavBarTypes) {
                   <div className='dropdown-content'>
                     <BsMoonFill />
                     <p>Modo Noturno</p>
-                    <StyledSwitch {...label} />
+                    <Switch
+                      inputProps={{ 'aria-label': 'controlled' }}
+                      onChange={handleThemeChange}
+                      checked={darkTheme}
+                    />
                   </div>
                   <div className='dropdown-content'>
                     <MdOutlineLogout />

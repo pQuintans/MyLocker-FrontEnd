@@ -9,13 +9,16 @@ import { Loading } from '../../components/Loading/Loading'
 import { useUser } from '../../hooks/useUser'
 
 import Logo from '../../assets/LogoPainted.png'
+import LogoWhite from '../../assets/LogoPaintedWhite.png'
 
 import api from '../../api'
 
 import './styles.scss'
+import { useDarkTheme } from '../../hooks/useDarkTheme'
 
 function ForgotPasswordPage() {
   const { user, setUser } = useUser()
+  const { darkTheme } = useDarkTheme()
   const navigate = useNavigate()
 
   const [email, setEmail] = useState('')
@@ -47,7 +50,7 @@ function ForgotPasswordPage() {
   }
 
   return (
-    <div id='forgot-password-page'>
+    <div id='forgot-password-page' className={darkTheme ? 'dark' : ''}>
       <Toaster />
       <NavBar smallNav={true} />
       <div className='form-container'>
@@ -56,7 +59,7 @@ function ForgotPasswordPage() {
             handleEmailInput(e)
           }
         >
-          <img src={Logo} alt='MyLocker' />
+          <img src={darkTheme ? LogoWhite : Logo} alt='MyLocker' />
           <div className='bottom-section'>
             <div className='content'>
               <div className='text-container'>

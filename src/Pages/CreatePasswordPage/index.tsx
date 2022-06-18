@@ -8,13 +8,16 @@ import { Loading } from '../../components/Loading/Loading'
 import { useUser } from '../../hooks/useUser'
 
 import Logo from '../../assets/LogoPainted.png'
+import LogoWhite from '../../assets/LogoPaintedWhite.png'
 
 import api from '../../api'
 
 import './styles.scss'
+import { useDarkTheme } from '../../hooks/useDarkTheme'
 
 function VerifyLoginPage() {
   const { user, setUser } = useUser()
+  const { darkTheme } = useDarkTheme()
   const navigate = useNavigate()
 
   const [loading, setLoading] = useState(false)
@@ -88,8 +91,15 @@ function VerifyLoginPage() {
 
   return (
     <>
-      <Toaster />
-      <div id='create-password-page'>
+      <Toaster
+        toastOptions={{
+          style: {
+            background: darkTheme ? '#333' : '#fff',
+            color: darkTheme ? '#fff' : '#000',
+          },
+        }}
+      />
+      <div id='create-password-page' className={darkTheme ? 'dark' : ''}>
         <NavBar smallNav={true} />
         <div className='form-container'>
           <form
@@ -97,7 +107,7 @@ function VerifyLoginPage() {
               handleCreatePassword(e)
             }}
           >
-            <img src={Logo} alt='MyLocker' />
+            <img src={darkTheme ? LogoWhite : Logo} alt='MyLocker' />
             <div className='bottom-section'>
               <div className='content'>
                 <div className='text-container'>

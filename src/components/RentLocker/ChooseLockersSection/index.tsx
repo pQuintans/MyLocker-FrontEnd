@@ -4,6 +4,7 @@ import LockerSectionBlue from '../../../assets/LockerSectionBlue.png'
 import LockerSectionGreen from '../../../assets/LockerSectionGreen.png'
 import LockerSectionRed from '../../../assets/LockerSectionRed.png'
 import LockerSectionYellow from '../../../assets/LockerSectionYellow.png'
+import { useDarkTheme } from '../../../hooks/useDarkTheme'
 
 import { SectionsTypes } from '../../../Pages/RentLockerPage'
 
@@ -15,9 +16,14 @@ interface ChooseLockersSection {
 }
 
 function ChooseLockersSection({ navigateToSection }: ChooseLockersSection) {
+  const { darkTheme } = useDarkTheme()
+
   return (
     <>
-      <div id='rent-lockers' className='choose-locker-section'>
+      <div
+        id='rent-lockers'
+        className={(darkTheme ? 'dark' : '') + ' choose-locker-section'}
+      >
         <div className='in-section'>
           <p>Sala 10</p>
           <img

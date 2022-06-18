@@ -13,9 +13,11 @@ import ContactUsIlustration from '../../assets/ContactUsIlustration.png'
 import api from '../../api'
 
 import './styles.scss'
+import { useDarkTheme } from '../../hooks/useDarkTheme'
 
 function ContactPage() {
   const { user, setUser } = useUser()
+  const { darkTheme } = useDarkTheme()
 
   const [email, setEmail] = useState(user.email)
   const [name, setName] = useState(user.first_name + ' ' + user.last_name)
@@ -63,8 +65,15 @@ function ContactPage() {
   }, [user])
 
   return (
-    <div id='contact-page'>
-      <Toaster />
+    <div id='contact-page' className={darkTheme ? 'dark' : ''}>
+      <Toaster
+        toastOptions={{
+          style: {
+            background: darkTheme ? '#333' : '#fff',
+            color: darkTheme ? '#fff' : '#000',
+          },
+        }}
+      />
       <NavBar />
       <main>
         <div className='title-container'>

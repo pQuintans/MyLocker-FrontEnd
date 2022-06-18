@@ -14,6 +14,7 @@ import LockerImage from '../../assets/LockerImage.png'
 import api from '../../api'
 
 import './styles.scss'
+import { useDarkTheme } from '../../hooks/useDarkTheme'
 
 type ConfirmRentPageParams = {
   lockersNumString: string
@@ -22,6 +23,7 @@ type ConfirmRentPageParams = {
 function ConfirmRentPage() {
   const { user, setUser } = useUser()
   const { locker } = useLocker()
+  const { darkTheme } = useDarkTheme()
   const params = useParams<ConfirmRentPageParams>()
   const navigate = useNavigate()
 
@@ -96,8 +98,15 @@ function ConfirmRentPage() {
   }
 
   return (
-    <div id='confirm-rent-page'>
-      <Toaster />
+    <div id='confirm-rent-page' className={darkTheme ? 'dark' : ''}>
+      <Toaster
+        toastOptions={{
+          style: {
+            background: darkTheme ? '#333' : '#fff',
+            color: darkTheme ? '#fff' : '#000',
+          },
+        }}
+      />
       <NavBar />
       <main>
         <div className='title-container'>
@@ -112,7 +121,9 @@ function ConfirmRentPage() {
               <h2>Pedido</h2>
               <div className='general-info-body'>
                 <div className='lockers-info'>
-                  <img ref={selectedLockerImgRef} src={LockerImage} alt='' />
+                  <div className='img-container' ref={selectedLockerImgRef}>
+                    <img src={LockerImage} alt='' />
+                  </div>
                   <div className='lockers-info-text'>
                     <h3>Armário {locker.number}</h3>
                     <div className='info'>
@@ -152,7 +163,7 @@ function ConfirmRentPage() {
                   <p>Subtotal</p>
                   <p>R$200,00</p>
                 </div>
-                <div className='desconto'>
+                <div className='discount'>
                   <p>Desconto APM</p>
                   <p>(50%) - R$100,00</p>
                 </div>

@@ -1,4 +1,67 @@
 nav{
+  &.dark {
+    .nav-header {
+      background: #00142b60;
+
+      p {
+        color: #e8eae8;
+      }
+    }
+
+    .nav-body {
+      background: #202124;
+      border-bottom: 1px solid #333639;
+
+      div {
+        .link {
+          color: #e8eae8;
+
+          &.actual-page {
+            color: var(--dark-yellow);
+          }
+        }
+
+        .profile-picture-container {
+
+          .profile-picture-dropdown {
+            background: #2d2e30;
+            box-shadow: 4px 4px 48px 0px #0000003d;
+
+            &::before {
+              border-bottom: 5px solid #2d2e30;
+            }
+
+            .dropdown-content {
+              border-bottom: 1px solid #54575c;
+              color: #e8eae8;
+
+              &.actual-page {
+                color: rgb(114, 114, 114);
+
+                a {
+                  color: rgb(114, 114, 114);
+                }
+              }
+
+              a {
+                color: #e8eae8;
+              }
+
+              .Mui-checked  >  .css-jsexje-MuiSwitch-thumb{
+                background:  #e4e4e4;
+              }
+            }
+          }
+        }
+
+        .login-button {
+          color: #202124;
+          background: #8ab4f8;
+        }
+      }
+    }
+  }
+
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -136,11 +199,7 @@ nav{
             }
 
             .css-5ryogn-MuiButtonBase-root-MuiSwitch-switchBase > .css-jsexje-MuiSwitch-thumb{
-              background:  #e4e4e4;
-            }
-
-            .Mui-checked  >  .css-jsexje-MuiSwitch-thumb{
-              background:  #303134;
+              background:  rgb(233, 233, 233);
             }
           }
 

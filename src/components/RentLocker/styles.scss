@@ -1,4 +1,8 @@
 #rent-lockers {
+  &.dark {
+    background: #2d2e30;
+  }
+
   display: grid;
   grid-template-columns: auto auto;
   gap: 40px 20px;

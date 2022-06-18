@@ -1,4 +1,76 @@
 #contact-page {
+  &.dark {
+    background: #202124;
+
+    main {
+      color: #e8eae8;
+
+      .title-container {
+        .page-subtitle {
+          color: #a7a7a7;
+        }
+      }
+
+      .contact-container {
+        background-color: #0000002f;
+
+        .contact-header {
+          background: var(--dark-blue);
+
+          .text-container {
+
+            .subtitle {
+              font: 400 25px 'Roboto';
+              color: #a7a7a7;
+            }
+
+            margin-bottom: 55px;
+          }
+        }
+
+        .contact-body {
+          background: transparent;
+
+          form {
+            input, textarea {
+              color: #e8eae8;
+              background: #303134;
+              border: 1px solid transparent;
+
+              box-shadow: 0px 4px 6px 0px #00000040;
+
+              &:disabled {
+                color: #bfc0bf;
+                background: #cecece4f;
+              }
+
+              &:focus {
+                outline: 0;
+                border-color: rgba(223,225,229,0);
+              }
+
+              &:hover {
+                box-shadow: 0 4px 12px rgba(70, 70, 70, 0.192);
+                border-color: rgba(223,225,229,0);
+              }
+            }
+
+            button {
+              color: #202124;
+              background: #8ab4f8;
+
+              &:hover {
+                cursor: pointer;
+                // filter: grayscale(30%);
+                filter: opacity(90%);
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
   width: calc(100vw - var(--scrollbarWidth));
 
   display: flex;
@@ -32,7 +104,7 @@
         background: var(--dark-blue);
         padding: 40px 45px;
         width:  60%;
-        border-radius: 25px;
+        border-radius: 20px;
         position: relative;
 
         .text-container {
@@ -77,7 +149,7 @@
           bottom: 0;
           right: 0;
           background: var(--dark-yellow);
-          border-radius: 90% 0 22px 0;
+          border-radius: 90% 0 15px 0;
 
           img {
             position: absolute;
@@ -156,6 +228,12 @@
             &.loading {
               pointer-events: none;
               filter: grayscale(50);
+            }
+
+            &:hover {
+              cursor: pointer;
+              filter: grayscale(30%);
+              // filter: opacity(90%);
             }
           }
         }

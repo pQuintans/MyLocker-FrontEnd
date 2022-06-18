@@ -9,13 +9,16 @@ import { Loading } from '../../components/Loading/Loading'
 import { useUser } from '../../hooks/useUser'
 
 import Logo from '../../assets/LogoPainted.png'
+import LogoWhite from '../../assets/LogoPaintedWhite.png'
 
 import api from '../../api'
 
 import './styles.scss'
+import { useDarkTheme } from '../../hooks/useDarkTheme'
 
 function LoginPage() {
   const { user, setUser } = useUser()
+  const { darkTheme } = useDarkTheme()
   const navigate = useNavigate()
 
   const [loginWithEmailSucceed, setLoginWithEmailSucceed] = useState(false)
@@ -65,6 +68,12 @@ function LoginPage() {
       })
   }
 
+  function forgotEmailToast() {
+    toast(
+      'Seu email institucional segue o seguinte formato: "clRA@g.unicamp.br"'
+    )
+  }
+
   async function handlePasswordVerification(
     e: React.FormEvent<HTMLFormElement>
   ) {
@@ -96,15 +105,22 @@ function LoginPage() {
   }
 
   return (
-    <div id='login-page'>
-      <Toaster />
+    <div id='login-page' className={darkTheme ? 'dark' : ''}>
+      <Toaster
+        toastOptions={{
+          style: {
+            background: darkTheme ? '#333' : '#fff',
+            color: darkTheme ? '#fff' : '#000',
+          },
+        }}
+      />
       <NavBar smallNav={true} />
       {!loginWithEmailSucceed ? (
         <div className='form-container'>
           <form
             onSubmit={(e: React.FormEvent<HTMLFormElement>) => handleLogin(e)}
           >
-            <img src={Logo} alt='MyLocker' />
+            <img src={darkTheme ? LogoWhite : Logo} alt='MyLocker' />
             <div className='bottom-section'>
               <div className='content'>
                 <div className='text-container'>
@@ -118,7 +134,7 @@ function LoginPage() {
                     onChange={event => setEmail(event.target.value)}
                     value={email}
                   />
-                  <p>Esqueceu seu e-mail?</p>
+                  <p onClick={forgotEmailToast}>Esqueceu seu e-mail?</p>
                 </div>
               </div>
               <button type='submit' className={loading ? 'loading' : ''}>
@@ -134,7 +150,7 @@ function LoginPage() {
               handlePasswordVerification(e)
             }
           >
-            <img src={Logo} alt='MyLocker' />
+            <img src={darkTheme ? LogoWhite : Logo} alt='MyLocker' />
             <div className='bottom-section'>
               <div className='content'>
                 <div className='text-container'>

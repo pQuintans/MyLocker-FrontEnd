@@ -13,14 +13,17 @@ import { useUser } from '../../hooks/useUser'
 import NoLockersFoundedImg from '../../assets/NoLockersFounded.png'
 import LockerImg from '../../assets/LockerImage.png'
 import DefaultProfilePic from '../../assets/DefaultProfilePicture.jpg'
+import DefaultProfilePicDarkMode from '../../assets/DefaultProfilePictureDarkMode.jpg'
 
 import api from '../../api'
 
 import './styles.scss'
 import { Loading } from '../../components/Loading/Loading'
+import { useDarkTheme } from '../../hooks/useDarkTheme'
 
 function ProfilePage() {
   const { user, setUser } = useUser()
+  const { darkTheme } = useDarkTheme()
 
   const [changeProfilePictureModalIsOpen, setChangeProfilePictureModalIsOpen] =
     useState(false)
@@ -160,9 +163,16 @@ function ProfilePage() {
   return (
     <>
       <div id='toast'>
-        <Toaster />
+        <Toaster
+          toastOptions={{
+            style: {
+              background: darkTheme ? '#333' : '#fff',
+              color: darkTheme ? '#fff' : '#000',
+            },
+          }}
+        />
       </div>
-      <div id='profile-page'>
+      <div id='profile-page' className={darkTheme ? 'dark' : ''}>
         <Modal
           open={changeProfilePictureModalIsOpen}
           closeModal={handleChangeProfilePictureModalChangeState}
@@ -174,6 +184,8 @@ function ProfilePage() {
                   ? newProfilePicture
                   : user.profile_picture_url
                   ? user.profile_picture_url
+                  : darkTheme
+                  ? DefaultProfilePicDarkMode
                   : DefaultProfilePic
               }
               alt='Foto de perfil'
@@ -248,6 +260,8 @@ function ProfilePage() {
               src={
                 user.profile_picture_url
                   ? user.profile_picture_url
+                  : darkTheme
+                  ? DefaultProfilePicDarkMode
                   : DefaultProfilePic
               }
               alt='Foto de perfil'
@@ -279,7 +293,9 @@ function ProfilePage() {
             ) : (
               <div className='locker contain-locker'>
                 <div className='left-section'>
-                  <img ref={lockerImgRef} src={LockerImg} alt='' />
+                  <div className='img-container' ref={lockerImgRef}>
+                    <img src={LockerImg} alt='' />
+                  </div>
                   <div className='left-section-content'>
                     <p className='title'>Armário {user.locker_number}</p>
                     <p className='subtitle'>

@@ -18,12 +18,14 @@ import LockerImage from '../../assets/LockerImage.png'
 import api from '../../api'
 
 import './styles.scss'
+import { useDarkTheme } from '../../hooks/useDarkTheme'
 
 export type SectionsTypes = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8
 
 function RentLockerPage() {
   const { user } = useUser()
   const { setLocker } = useLocker()
+  const { darkTheme } = useDarkTheme()
 
   const [sectionChoosed, setSectionChoosed] = useState<SectionsTypes | null>(
     null
@@ -49,6 +51,7 @@ function RentLockerPage() {
 
   function handleChangeLockerModalState() {
     if (lockerModalIsOpen) {
+      setSelectedLocker(null)
       document.body.style.overflow = 'auto'
       setLockerModalIsOpen(false)
     } else {
@@ -96,13 +99,22 @@ function RentLockerPage() {
   }, [selectedLocker])
 
   return (
-    <div id='rent-locker-page'>
-      <Toaster />
+    <div id='rent-locker-page' className={darkTheme ? 'dark' : ''}>
+      <Toaster
+        toastOptions={{
+          style: {
+            background: darkTheme ? '#333' : '#fff',
+            color: darkTheme ? '#fff' : '#000',
+          },
+        }}
+      />
       <Modal open={lockerModalIsOpen} closeModal={handleChangeLockerModalState}>
         <div className='modal-container locker-modal'>
-          <img ref={selectedLockerImgRef} src={LockerImage} />
           {selectedLocker ? (
             <>
+              <div className='img-container' ref={selectedLockerImgRef}>
+                <img src={LockerImage} />
+              </div>
               <div className='content'>
                 <p className='title'>Armário {selectedLocker.number}</p>
                 <div className='info'>

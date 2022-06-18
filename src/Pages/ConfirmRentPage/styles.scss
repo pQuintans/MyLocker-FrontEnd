@@ -1,4 +1,53 @@
 #confirm-rent-page {
+  &.dark {
+    background: #202124;
+
+    main {
+      color: #e8eae8;
+
+      .title-container {
+        .page-subtitle {
+          color: #a7a7a7;
+        }
+      }
+
+      .content {
+        .general-info {
+          background: #2d2e30;
+
+          h2 {
+            border-bottom: 1px solid #333639;
+          }
+
+          .general-info-body .lockers-info .lockers-info-text .info p span {
+            color: #a7a7a7;
+          }
+        }
+
+        .prices-info {
+          background: #2d2e30;
+
+          .top-section {
+            .discount {
+              color: #a7a7a7;
+            }
+
+            &::after {
+              background: #434547;
+            }
+          }
+
+          .bottom-section {
+            button {
+              color: #202124;
+              background: #8ab4f8;
+            }
+          }
+        }
+      }
+    }
+  }
+
   width: calc(100vw - var(--scrollbarWidth));
 
   display: flex;
@@ -48,9 +97,12 @@
             gap: 20px;
             width: 100%;
 
-            img {
-              border-radius: 10px;
-              height: 100%;
+            .img-container {
+              border-radius: 20px;
+
+              img {
+                height: 100%;
+              }
             }
 
             .lockers-info-text {
@@ -111,7 +163,7 @@
           position: relative;
 
           .subtotal,
-          .desconto{
+          .discount{
             display: flex;
             justify-content: space-between;
           }
@@ -120,7 +172,7 @@
             font: 400 30px 'Roboto';
           }
 
-          .desconto {
+          .discount {
             font: 400 18px 'Roboto';
             color: #868686;
           }
@@ -141,17 +193,19 @@
           padding: 26px;
           padding-bottom: 40px;
           display: flex;
+          align-items: center;
           flex-direction: column;
           gap: 40px;
 
           .total {
             display: flex;
+            width: 100%;
             justify-content: space-between;
             font: 400 30px 'Roboto';
           }
 
           button {
-            width: 95%;
+            width: 100%;
             padding: 15px 0;
             border-radius: 15px;
             border: none;

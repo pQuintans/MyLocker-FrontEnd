@@ -8,10 +8,12 @@ import PlataformImage from '../../assets/ScreensIlustration.png'
 import ProblemImage from '../../assets/ProblemIlustration.png'
 
 import './styles.scss'
+import { useDarkTheme } from '../../hooks/useDarkTheme'
 
 function AboutUsPage() {
+  const { darkTheme } = useDarkTheme()
   return (
-    <div id='aboutUs-page'>
+    <div id='aboutUs-page' className={darkTheme ? 'dark' : ''}>
       <NavBar />
       <main>
         <div className='title-container'>

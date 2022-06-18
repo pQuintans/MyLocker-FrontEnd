@@ -33,12 +33,17 @@
           column-gap: 5px;
           place-items: center;
 
-          img {
-            border-radius: 6px;
-            cursor: pointer;
+          .img-container {
+            border-radius: 8px;
+            height: 80px;
 
             &.rented {
               filter: brightness(50%);
+            }
+
+            img {
+              cursor: pointer;
+              height: 80px;
             }
           }
         }

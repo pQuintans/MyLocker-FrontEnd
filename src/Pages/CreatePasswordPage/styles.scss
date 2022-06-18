@@ -1,4 +1,74 @@
 #create-password-page {
+  &.dark {
+    background: #202124;
+
+    .form-container {
+      color: #e8eae8;
+
+      form {
+        border: 1px solid #DADCE0;
+        box-shadow: 5px 4px 4px 0px #0000001A;
+
+        .bottom-section {
+          .content {
+            .text-container {
+              .subtitle {
+                color: #a7a7a7;
+              }
+
+              .email {
+                background: #2d2e30;
+                color: #a7a7a7;
+              }
+            }
+
+            .input-container {
+              input {
+                color: #e8eae8;
+                background: #303134;
+                border: 1px solid transparent;
+
+                box-shadow: 0px 4px 6px 0px #00000040;
+
+                &:disabled {
+                  color: #bfc0bf;
+                  background: #cecece4f;
+                }
+
+                &:focus {
+                  outline: 0;
+                  border-color: rgba(223,225,229,0);
+                }
+
+                &:hover {
+                  box-shadow: 0 4px 12px rgba(39, 39, 39, 0.9);
+                  border-color: rgba(223,225,229,0);
+                }
+              }
+
+              p, a {
+                color: var(--medium-blue);
+              }
+            }
+          }
+
+          button {
+            color: #202124;
+            background: #8ab4f8;
+
+            &:hover {
+              filter: opacity(90%);
+            }
+
+            &:focus {
+              box-shadow: 0 0 0 2px #202124, 0 0 0 7px #00658d;
+            }
+          }
+        }
+      }
+    }
+  }
+
   width: calc(100vw - var(--scrollbarWidth));
 
   .form-container {
@@ -118,6 +188,11 @@
             cursor: pointer;
             filter: grayscale(30%);
             // filter: opacity(90%);
+          }
+
+          &:focus {
+            outline: none;
+            box-shadow: 0 0 0 2px #fff, 0 0 0 7px var(--dark-blue);
           }
         }
       }

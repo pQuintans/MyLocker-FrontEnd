@@ -1,4 +1,64 @@
 #aboutUs-page {
+  &.dark {
+    background: #202124;
+
+    main {
+      color: #e8eae8;
+
+      .title-container {
+        .page-subtitle {
+          color: #a7a7a7;
+        }
+      }
+
+      .cards-container {
+        .left-container {
+          .card {
+            background: #14284d;
+
+            .cards-content {
+              .title {
+                &.team {
+                  color: #1ab3bb;
+                }
+
+                &.plataform {
+                  color: #27bcfc;
+                }
+              }
+
+              .content {
+                width: 300px;
+                font-size: 27px;
+                color: #d3d3d3;
+              }
+            }
+
+            img {
+              height: 100%;
+            }
+          }
+        }
+
+        .right-container {
+          background: #14284d;
+
+          .cards-content {
+            .title {
+              &.problem {
+                color: rgb(139, 104, 241);
+              }
+            }
+
+            .content {
+              color: #d3d3d3;
+            }
+          }
+        }
+      }
+    }
+  }
+
   width: calc(100vw - var(--scrollbarWidth));
 
   display: flex;

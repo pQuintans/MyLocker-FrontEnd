@@ -6,10 +6,12 @@ import NavBar from '../../components/NavBar'
 import LandingPageImage from '../../assets/LandingPageImage.jpg'
 
 import './styles.scss'
+import { useDarkTheme } from '../../hooks/useDarkTheme'
 
 function LandingPage() {
+  const { darkTheme } = useDarkTheme()
   return (
-    <div id='LandingPage'>
+    <div id='LandingPage' className={darkTheme ? 'dark' : ''}>
       <NavBar />
       <main>
         <img src={LandingPageImage} alt='Armários' />
