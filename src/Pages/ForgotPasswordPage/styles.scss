@@ -1,4 +1,4 @@
-#login-page {
+#forgot-password-page {
   width: calc(100vw - var(--scrollbarWidth));
 
   .form-container {
@@ -94,10 +94,8 @@
               }
             }
 
-            p, a {
-              display: block;
-              margin: 25px 0 0 10px;
-              text-decoration: none;
+            p {
+              margin: 25px 10px 0 0;
               color: var(--medium-blue);
               font-size: 25px;
 

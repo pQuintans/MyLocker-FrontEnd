@@ -222,7 +222,7 @@ function ProfilePage() {
                 type='text'
                 ref={oldPasswordInputRef}
               />
-              <p>Esqueceu sua senha?</p>
+              <Link to='/login/recuperar-senha'>Esqueceu sua senha?</Link>
               <input
                 placeholder='Nova senha'
                 type='text'

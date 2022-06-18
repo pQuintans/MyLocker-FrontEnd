@@ -52,30 +52,33 @@ function VerifyLoginPage() {
 
       setLoading(true)
 
-      api
-        .put('/students/update-password', requestBody)
-        .then(() => {
-          setUser({
-            ra: '',
-            first_name: '',
-            last_name: '',
-            email: '',
-            code: '',
-            password: '',
-            locker_number: undefined,
-            status: undefined,
+      api.get('/logout/students', { withCredentials: true }).then(() => {
+        setUser({
+          ra: '',
+          first_name: '',
+          last_name: '',
+          email: '',
+          code: '',
+          password: '',
+          locker_number: undefined,
+          status: undefined,
+        })
+
+        api
+          .put('/students/update-password', requestBody)
+          .then(() => {
+            toast.success('Senha criada com sucesso')
+            setLoading(false)
+            setTimeout(() => {
+              toast.dismiss()
+              navigate('/login')
+            }, 1500)
           })
-          toast.success('Senha criada com sucesso')
-          setLoading(false)
-          setTimeout(() => {
-            toast.dismiss()
-            navigate('/login')
-          }, 1500)
-        })
-        .catch(err => {
-          toast.error(err.response.data.erro)
-          setLoading(false)
-        })
+          .catch(err => {
+            toast.error(err.response.data.erro)
+            setLoading(false)
+          })
+      })
     }
   }
 

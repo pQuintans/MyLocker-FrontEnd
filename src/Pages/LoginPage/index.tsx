@@ -1,6 +1,6 @@
 import React, { useRef, useState } from 'react'
 import toast, { Toaster } from 'react-hot-toast'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { AxiosResponse } from 'axios'
 
 import NavBar from '../../components/NavBar'
@@ -150,7 +150,7 @@ function LoginPage() {
                     value={password}
                     ref={passwordInput}
                   />
-                  <p>Esqueceu sua senha?</p>
+                  <Link to='/login/recuperar-senha'>Esqueceu sua senha?</Link>
                 </div>
               </div>
               <button type='submit' className={loading ? 'loading' : ''}>

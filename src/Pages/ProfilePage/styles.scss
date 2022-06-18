@@ -105,7 +105,9 @@
           }
         }
 
-        p {
+        p, a {
+          display: block;
+          text-decoration: none;
           margin-top: 20px;
           color: var(--medium-blue);
           font-size: 25px;

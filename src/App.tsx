@@ -5,10 +5,11 @@ import ScrollToTop from './utils/ScrollToTop'
 
 import LandingPage from './Pages/LandingPage'
 import LoginPage from './Pages/LoginPage'
-import AboutUsPage from './Pages/AboutUsPage'
-import ContactPage from './Pages/ContactPage'
 import VerifyEmailPage from './Pages/VerifyEmailPage'
 import CreatePasswordPage from './Pages/CreatePasswordPage'
+import ForgotPasswordPage from './Pages/ForgotPasswordPage'
+import AboutUsPage from './Pages/AboutUsPage'
+import ContactPage from './Pages/ContactPage'
 import RentLockerPage from './Pages/RentLockerPage'
 import ConfirmRentPage from './Pages/ConfirmRentPage'
 import ProfilePage from './Pages/ProfilePage'
@@ -34,6 +35,10 @@ function App() {
               <Route
                 path='/login/criar-senha'
                 element={<CreatePasswordPage />}
+              />
+              <Route
+                path='/login/recuperar-senha'
+                element={<ForgotPasswordPage />}
               />
               <Route path='/sobre-nos' element={<AboutUsPage />} />
               <Route path='/contato' element={<ContactPage />} />
