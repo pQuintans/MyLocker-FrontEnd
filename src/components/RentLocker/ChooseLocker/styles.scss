@@ -4,11 +4,17 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    min-height: 710px;
 
     padding-top: 60px;
     padding-bottom: 60px;
 
     gap: 50px;
+
+    .spinner {
+      height: 40px;
+      width: 40px;
+    }
 
     .top-section {
       display: flex;
