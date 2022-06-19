@@ -33,6 +33,7 @@ function ProfilePage() {
   const [studentLocker, setStudentLocker] = useState<Locker | null>(null)
   const [selectedImage, setSelectedImage] = useState<File>()
   const [loading, setLoading] = useState(false)
+  const [loadingLocker, setLoadingLocker] = useState(true)
 
   const oldPasswordInputRef = useRef<HTMLInputElement>(null)
   const newPasswordInputRef = useRef<HTMLInputElement>(null)
@@ -132,8 +133,14 @@ function ProfilePage() {
         .get(`/lockers/${user.locker_number}`)
         .then(response => {
           setStudentLocker(response.data)
+          setLoadingLocker(false)
         })
-        .catch(err => toast.error(err.response.data.erro))
+        .catch(err => {
+          toast.error(err.response.data.erro)
+          setLoadingLocker(false)
+        })
+    } else {
+      setLoadingLocker(false)
     }
   }
 
@@ -282,7 +289,7 @@ function ProfilePage() {
           <section className='locker-section'>
             <h1>Meu Armário</h1>
 
-            {studentLocker == null ? (
+            {user.locker_number == null && !loadingLocker ? (
               <div className='locker no-locker'>
                 <img src={NoLockersFoundedImg} alt='' />
                 <div className='content-section'>
@@ -292,46 +299,55 @@ function ProfilePage() {
               </div>
             ) : (
               <div className='locker contain-locker'>
-                <div className='left-section'>
-                  <div className='img-container' ref={lockerImgRef}>
-                    <img src={LockerImg} alt='' />
-                  </div>
-                  <div className='left-section-content'>
-                    <p className='title'>Armário {user.locker_number}</p>
-                    <p className='subtitle'>
-                      Alugado em {studentLocker.rentedAt?.split(' ')[0]}
-                    </p>
-                  </div>
-                </div>
-                <div className='right-section'>
-                  <div className='row'>
-                    <p className='row-title'>Andar:</p>
-                    <p className='row-content'>
-                      {studentLocker.FK_section_id <= 5
-                        ? 'Segundo'
-                        : 'Primeiro'}
-                    </p>
-                  </div>
-                  <div className='row'>
-                    <p className='row-title'>Cor:</p>
-                    <p className='row-content'>
-                      {transformHexToPlainText(studentLocker.section.color)}
-                    </p>
-                    <span className='locker-color' ref={colorSpanRef}></span>
-                  </div>
-                  <div className='row'>
-                    <p className='row-title'>À Esquerda:</p>
-                    <p className='row-content'>
-                      {studentLocker.section.left_room}
-                    </p>
-                  </div>
-                  <div className='row'>
-                    <p className='row-title'>À Direita:</p>
-                    <p className='row-content'>
-                      {studentLocker.section.right_room}
-                    </p>
-                  </div>
-                </div>
+                {!studentLocker ? (
+                  <Loading />
+                ) : (
+                  <>
+                    <div className='left-section'>
+                      <div className='img-container' ref={lockerImgRef}>
+                        <img src={LockerImg} alt='' />
+                      </div>
+                      <div className='left-section-content'>
+                        <p className='title'>Armário {user.locker_number}</p>
+                        <p className='subtitle'>
+                          Alugado em {studentLocker.rentedAt?.split(' ')[0]}
+                        </p>
+                      </div>
+                    </div>
+                    <div className='right-section'>
+                      <div className='row'>
+                        <p className='row-title'>Andar:</p>
+                        <p className='row-content'>
+                          {studentLocker.FK_section_id <= 5
+                            ? 'Segundo'
+                            : 'Primeiro'}
+                        </p>
+                      </div>
+                      <div className='row'>
+                        <p className='row-title'>Cor:</p>
+                        <p className='row-content'>
+                          {transformHexToPlainText(studentLocker.section.color)}
+                        </p>
+                        <span
+                          className='locker-color'
+                          ref={colorSpanRef}
+                        ></span>
+                      </div>
+                      <div className='row'>
+                        <p className='row-title'>À Esquerda:</p>
+                        <p className='row-content'>
+                          {studentLocker.section.left_room}
+                        </p>
+                      </div>
+                      <div className='row'>
+                        <p className='row-title'>À Direita:</p>
+                        <p className='row-content'>
+                          {studentLocker.section.right_room}
+                        </p>
+                      </div>
+                    </div>
+                  </>
+                )}
               </div>
             )}
           </section>

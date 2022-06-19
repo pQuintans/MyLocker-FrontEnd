@@ -119,6 +119,15 @@
           }
 
           &.contain-locker {
+            min-height: 230px;
+            display: flex;
+
+            .spinner {
+              width: 100%;
+              height: 40px;
+              align-self: center;
+            }
+
             .left-section {
               .left-section-content {
                 .subtitle {
