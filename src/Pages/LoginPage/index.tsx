@@ -160,7 +160,7 @@ function LoginPage() {
                 </div>
                 <div className='input-container'>
                   <input
-                    type='text'
+                    type='password'
                     placeholder='Senha'
                     onChange={event => setPassword(event.target.value)}
                     value={password}
