@@ -1,0 +1,38 @@
+#apm-page {
+  &.dark {
+    background: #202124;
+
+    main {
+      color: #e8eae8;
+
+      .title-container {
+        .page-subtitle {
+          color: #a7a7a7;
+        }
+      }
+    }
+  }
+
+  width: calc(100vw - var(--scrollbarWidth));
+
+  display: flex;
+  flex-direction: column;
+
+  main {
+    width: 1350px;
+    align-self: center;
+    padding: 50px 0 80px;
+
+    .title-container {
+      padding: 0 0 60px 30px;
+      .page-title {
+        font: 500 40px 'Roboto';
+      }
+
+      .page-subtitle {
+        font-size: 25px;
+        color: #717171;
+      }
+    }
+  }
+}

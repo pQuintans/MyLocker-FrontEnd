@@ -19,6 +19,7 @@ import { LockerContextProvider } from './contexts/LockerContext'
 import { DarkThemeContextProvider } from './contexts/DarkThemeContext'
 
 import './global.scss'
+import ApmPage from './Pages/ApmPage'
 
 function App() {
   return (
@@ -45,6 +46,7 @@ function App() {
                 <Route path='/sobre-nos' element={<AboutUsPage />} />
                 <Route path='/contato' element={<ContactPage />} />
                 <Route path='/perfil' element={<ProfilePage />} />
+                <Route path='/apm' element={<ApmPage />} />
                 <Route path='/alugar-armario' element={<RentLockerPage />} />
                 <Route
                   path='/alugar-armario/:lockersNumString'

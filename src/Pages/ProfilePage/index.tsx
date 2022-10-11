@@ -114,7 +114,7 @@ function ProfilePage() {
       formData.append('ra', user.ra)
       setLoading(true)
       api
-        .post('/upload', formData, { withCredentials: true })
+        .post('/uploadImage', formData, { withCredentials: true })
         .then(res => {
           setUser(res.data)
           setLoading(false)

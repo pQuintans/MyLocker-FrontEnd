@@ -1,0 +1,35 @@
+#apm-situation {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+    background: #F2F2F2;
+    border: none;
+    border-radius: 20px;
+    width: 80%;
+    height: 384px;
+    padding: 0 100px;
+
+    h1 {
+      font-weight: 500;
+      font-size: 32px;
+      margin-bottom: 14px;
+    }
+
+    p {
+      text-align: center;
+      font-size: 28px;
+      color: #717171;
+
+      &:first-of-type {
+        margin-bottom: 9px;
+      }
+    }
+  }
+}
