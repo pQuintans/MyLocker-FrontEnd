@@ -12,6 +12,7 @@ export interface Student {
   locker_number?: number
   status?: number
   profile_picture_url?: string
+  apm_id?: number
 }
 
 interface UserContextType {

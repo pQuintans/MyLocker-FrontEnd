@@ -31,5 +31,28 @@
         margin-bottom: 9px;
       }
     }
+
+    button {
+      margin-top: 30px;
+      font: 500 25px 'Roboto';
+      color: #fff;
+      border: none;
+      cursor: pointer;
+
+      padding: 20px 50px;
+      border-radius: 15px;
+      background: var(--medium-blue);
+
+      &.loading {
+        pointer-events: none;
+        filter: grayscale(50);
+      }
+
+      &:hover {
+        cursor: pointer;
+        filter: grayscale(30%);
+        // filter: opacity(90%);
+      }
+    }
   }
 }

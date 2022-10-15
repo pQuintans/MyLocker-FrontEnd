@@ -1,4 +1,5 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React from 'react'
+import { useUser } from '../../../hooks/useUser'
 
 // import '../styles.scss'
 import './styles.scss'
@@ -8,6 +9,12 @@ interface ApmSituation {
 }
 
 export function ApmSituation({ situation }: ApmSituation) {
+  const { user, setUser } = useUser()
+
+  function handleResendDiscountAplication() {
+    setUser({ ...user, apm_id: undefined })
+  }
+
   return (
     <div id='apm-situation'>
       <div className='content'>
@@ -45,6 +52,9 @@ export function ApmSituation({ situation }: ApmSituation) {
               Você pode tentar novamente submetendo um novo comprovante ou
               alugar um armário com o preço normal.
             </p>
+            <button onClick={handleResendDiscountAplication}>
+              Submeter Novamente
+            </button>
           </>
         )}
       </div>
