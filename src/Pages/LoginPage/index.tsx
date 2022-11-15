@@ -49,6 +49,7 @@ function LoginPage() {
             .put('/students/generate-code', requestBody)
             .then((response: AxiosResponse) => {
               const { randomCode } = response.data
+              console.log(response.data)
               setUser({ ...user, email: email, code: randomCode })
               setLoading(false)
               toast.success('Bem vindo ao MyLocker - Crie sua senha!')

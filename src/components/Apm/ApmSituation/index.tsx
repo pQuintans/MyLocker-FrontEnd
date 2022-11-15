@@ -1,4 +1,5 @@
 import React from 'react'
+import { useDarkTheme } from '../../../hooks/useDarkTheme'
 import { useUser } from '../../../hooks/useUser'
 
 // import '../styles.scss'
@@ -10,13 +11,14 @@ interface ApmSituation {
 
 export function ApmSituation({ situation }: ApmSituation) {
   const { user, setUser } = useUser()
+  const { darkTheme } = useDarkTheme()
 
   function handleResendDiscountAplication() {
     setUser({ ...user, apm_id: undefined })
   }
 
   return (
-    <div id='apm-situation'>
+    <div className={darkTheme ? 'dark' : ''} id='apm-situation'>
       <div className='content'>
         <h1>{situation}</h1>
         {situation == 'Em Análise' ? (

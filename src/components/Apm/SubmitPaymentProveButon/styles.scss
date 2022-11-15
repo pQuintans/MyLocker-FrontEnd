@@ -4,6 +4,31 @@
   flex-direction: column;
   gap: 20px;
 
+  &.dark {
+    button {
+      background: #2d2e30;
+
+      svg, p {
+        color: #a7a7a7;
+      }
+
+      &:hover {
+        background: #313131;
+      }
+    }
+
+    .review-files-div {
+      .submit-button {
+        color: #202124;
+        background: #8ab4f8;
+
+        &:hover {
+          background: #7aa4e8;
+        }
+      }
+    }
+  }
+
   button {
     display: flex;
     align-items: center;
@@ -23,7 +48,7 @@
       background: #dfdddd;
     }
 
-    svg {
+    .file-icon {
       font-size: 80px;
       margin-right: 10px;
     }
@@ -37,7 +62,7 @@
     &.small-button {
       padding: 80px;
 
-      svg {
+      .file-icon {
         font-size: 40px;
         margin-right: 10px;
       }
@@ -61,9 +86,23 @@
 
     .submit-button {
       padding: 30px 50px;
+      color: #fff;
       width: unset;
+      min-width: 161px;
       font-size: 20px;
       font-weight: 500;
+      background: var(--medium-blue);
+      transition: filter .5s;
+
+      &.loading {
+        pointer-events: none;
+        filter: grayscale(50);
+      }
+
+      &:hover {
+        cursor: pointer;
+        filter: grayscale(40%);
+      }
     }
 
     p {

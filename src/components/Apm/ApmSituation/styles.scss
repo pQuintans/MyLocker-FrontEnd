@@ -3,6 +3,20 @@
   align-items: center;
   justify-content: center;
 
+  &.dark {
+    .content {
+      background: #2d2e30;
+      p {
+        color: #a7a7a7;
+      }
+
+      button {
+        color: #202124;
+        background: #8ab4f8;
+      }
+    }
+  }
+
   .content {
     display: flex;
     align-items: center;

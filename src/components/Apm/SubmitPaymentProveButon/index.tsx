@@ -6,9 +6,13 @@ import { HiOutlineDocumentAdd } from 'react-icons/hi'
 import { useUser } from '../../../hooks/useUser'
 import api from '../../../api'
 import toast from 'react-hot-toast'
+import { useDarkTheme } from '../../../hooks/useDarkTheme'
+import { Loading } from '../../Loading/Loading'
 
 export function SubmitPaymentProveButton() {
   const { user, setUser } = useUser()
+  const { darkTheme } = useDarkTheme()
+
   const selectFileRef = useRef<HTMLInputElement>(null)
   const [apmPaymentComprove, setApmPaymentComprove] = useState<File>()
   const [loading, setLoading] = useState(false)
@@ -40,7 +44,11 @@ export function SubmitPaymentProveButton() {
   }
 
   return (
-    <form id='submit-payment-prove' onSubmit={e => handleSubmitPaymentProve(e)}>
+    <form
+      id='submit-payment-prove'
+      className={darkTheme ? 'dark' : ''}
+      onSubmit={e => handleSubmitPaymentProve(e)}
+    >
       <input
         type='file'
         accept='.pdf'
@@ -49,20 +57,20 @@ export function SubmitPaymentProveButton() {
       />
       <button
         type='button'
-        disabled={loading}
+        // disabled={loading}
         onClick={() => {
           selectFileRef.current!.click()
         }}
         className={apmPaymentComprove && 'small-button'}
       >
-        <HiOutlineDocumentAdd />
+        <HiOutlineDocumentAdd className='file-icon' />
         <p>Submeter comprovante de pagamento da APM</p>
       </button>
       {apmPaymentComprove && (
         <div className='review-files-div'>
           <p>{apmPaymentComprove.name}</p>
           <button className='submit-button' type='submit' disabled={loading}>
-            Enviar!
+            {loading ? <Loading /> : 'Enviar!'}
           </button>
         </div>
       )}
