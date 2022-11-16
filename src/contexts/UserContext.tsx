@@ -2,6 +2,11 @@ import { AxiosResponse } from 'axios'
 import React, { useState, createContext, ReactNode, useEffect } from 'react'
 import api from '../api'
 
+interface Apm {
+  id: number
+  status: number
+}
+
 export interface Student {
   ra: string
   first_name: string
@@ -12,7 +17,8 @@ export interface Student {
   locker_number?: number
   status?: number
   profile_picture_url?: string
-  apm_id?: number
+  apm: Apm[]
+  apmCount: number
 }
 
 interface UserContextType {
@@ -32,6 +38,8 @@ export function UserContextProvider({ children }: UserContextProviderProps) {
     first_name: '',
     last_name: '',
     email: '',
+    apm: [],
+    apmCount: 0,
   })
 
   useEffect(() => {

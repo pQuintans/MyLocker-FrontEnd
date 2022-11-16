@@ -9,7 +9,13 @@ import toast from 'react-hot-toast'
 import { useDarkTheme } from '../../../hooks/useDarkTheme'
 import { Loading } from '../../Loading/Loading'
 
-export function SubmitPaymentProveButton() {
+interface SubmitPaymentProveButtonProps {
+  setSendApm: (data: boolean) => void
+}
+
+export function SubmitPaymentProveButton({
+  setSendApm,
+}: SubmitPaymentProveButtonProps) {
   const { user, setUser } = useUser()
   const { darkTheme } = useDarkTheme()
 
@@ -35,6 +41,7 @@ export function SubmitPaymentProveButton() {
         .then(res => {
           setLoading(false)
           setUser(res.data.student)
+          setSendApm(false)
         })
         .catch(err => {
           setLoading(false)

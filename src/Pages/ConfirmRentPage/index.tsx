@@ -26,6 +26,8 @@ function ConfirmRentPage() {
   const { darkTheme } = useDarkTheme()
   const params = useParams<ConfirmRentPageParams>()
   const navigate = useNavigate()
+  const regularPrice = 200
+  const discount = 100
 
   const [loading, setLoading] = useState(false)
 
@@ -161,17 +163,30 @@ function ConfirmRentPage() {
               <div className='top-section'>
                 <div className='subtotal'>
                   <p>Subtotal</p>
-                  <p>R$200,00</p>
+                  <p>R${regularPrice},00</p>
                 </div>
                 <div className='discount'>
                   <p>Desconto APM</p>
-                  <p>(50%) - R$100,00</p>
+                  {user.apm[0]?.status == 2 ? (
+                    <p>
+                      ({(discount * 100) / regularPrice}%) - R$
+                      {regularPrice - discount},00
+                    </p>
+                  ) : (
+                    <p>(0%) - R$0,00</p>
+                  )}
                 </div>
               </div>
               <div className='bottom-section'>
                 <div className='total'>
                   <p>Total</p>
-                  <p>R$100,00</p>
+                  <p>
+                    R$
+                    {user.apm[0]?.status == 2
+                      ? regularPrice - discount
+                      : regularPrice}
+                    ,00
+                  </p>
                 </div>
                 <button
                   onClick={handleLockerRent}

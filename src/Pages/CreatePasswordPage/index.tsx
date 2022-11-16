@@ -65,6 +65,8 @@ function VerifyLoginPage() {
           password: '',
           locker_number: undefined,
           status: undefined,
+          apm: [],
+          apmCount: 0,
         })
 
         api

@@ -60,6 +60,8 @@ function ContactPage() {
         first_name: '',
         last_name: '',
         email: '',
+        apm: [],
+        apmCount: 0,
       })
     }
   }, [user])

@@ -51,6 +51,8 @@ function NavBar({ smallNav }: NavBarTypes) {
         first_name: '',
         last_name: '',
         email: '',
+        apm: [],
+        apmCount: 0,
       })
       navigate('/')
     })

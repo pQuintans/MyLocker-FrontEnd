@@ -2,19 +2,19 @@ import React from 'react'
 import { useDarkTheme } from '../../../hooks/useDarkTheme'
 import { useUser } from '../../../hooks/useUser'
 
-// import '../styles.scss'
 import './styles.scss'
 
-interface ApmSituation {
+interface ApmSituationProps {
   situation: 'Em Análise' | 'Aprovada' | 'Rejeitada'
+  setSendApm: (data: boolean) => void
 }
 
-export function ApmSituation({ situation }: ApmSituation) {
-  const { user, setUser } = useUser()
+export function ApmSituation({ situation, setSendApm }: ApmSituationProps) {
   const { darkTheme } = useDarkTheme()
+  const { user } = useUser()
 
   function handleResendDiscountAplication() {
-    setUser({ ...user, apm_id: undefined })
+    setSendApm(true)
   }
 
   return (
@@ -50,13 +50,22 @@ export function ApmSituation({ situation }: ApmSituation) {
               Sua submissão foi analisada pelos funcionários da escola e
               infelizmente não foi aceita.
             </p>
-            <p>
-              Você pode tentar novamente submetendo um novo comprovante ou
-              alugar um armário com o preço normal.
-            </p>
-            <button onClick={handleResendDiscountAplication}>
-              Submeter Novamente
-            </button>
+            {user.apmCount < 3 ? (
+              <>
+                <p>
+                  Você pode tentar novamente submetendo um novo comprovante ou
+                  alugar um armário com o preço normal.
+                </p>
+                <button onClick={handleResendDiscountAplication}>
+                  Submeter Novamente
+                </button>
+              </>
+            ) : (
+              <p>
+                Você já submeteu 3 comprovantes e nenhum foi aceito. Portanto,
+                este ano só será possível alugar um armário com o preço regular.
+              </p>
+            )}
           </>
         )}
       </div>

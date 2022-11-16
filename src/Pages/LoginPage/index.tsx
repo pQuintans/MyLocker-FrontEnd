@@ -92,6 +92,7 @@ function LoginPage() {
       .post('/students/session', requestBody, { withCredentials: true })
       .then((response: AxiosResponse) => {
         setUser(response.data)
+        console.log(response.data)
         setLoading(false)
         toast.success('Login realizado com sucesso')
         setTimeout(() => {

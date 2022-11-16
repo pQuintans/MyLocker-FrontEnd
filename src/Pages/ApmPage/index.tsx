@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 
 import Footer from '../../components/Footer'
 import NavBar from '../../components/NavBar'
@@ -7,38 +7,16 @@ import './styles.scss'
 import { useDarkTheme } from '../../hooks/useDarkTheme'
 import { SubmitPaymentProveButton } from '../../components/Apm/SubmitPaymentProveButon'
 import { ApmSituation } from '../../components/Apm/ApmSituation'
-import toast, { Toaster } from 'react-hot-toast'
+import { Toaster } from 'react-hot-toast'
 import { useUser } from '../../hooks/useUser'
-import api from '../../api'
-
-interface ApmData {
-  id: number
-  requisitionPDF: string
-  status: number
-  FK_functionary_cpf?: string
-}
 
 function ApmPage() {
   const { user } = useUser()
-  const [apm, setApm] = useState<ApmData>()
+  const [sendApm, setSendApm] = useState(user.apmCount > 0 ? false : true)
   const { darkTheme } = useDarkTheme()
 
-  useEffect(() => {
-    console.log(user)
-    if (user.apm_id) {
-      api
-        .get(`/apms/${user.apm_id}`)
-        .then(res => {
-          setApm(res.data)
-          console.log(res.data)
-        })
-        .catch(err => {
-          toast.error(err.response.data)
-        })
-    } else {
-      setApm(undefined)
-    }
-  }, [user])
+  console.log(user.apm)
+  console.log(user.apmCount)
 
   return (
     <div id='apm-page' className={darkTheme ? 'dark' : ''}>
@@ -51,14 +29,15 @@ function ApmPage() {
             Submeta e acompanhe a situação de seu pedido de desconto pela APM.
           </p>
         </div>
-        {apm == undefined ? (
-          <SubmitPaymentProveButton />
+        {sendApm ? (
+          <SubmitPaymentProveButton setSendApm={setSendApm} />
         ) : (
           <ApmSituation
+            setSendApm={setSendApm}
             situation={
-              apm.status == 0
+              user.apm[0]?.status == 0
                 ? 'Rejeitada'
-                : apm.status == 1
+                : user.apm[0]?.status == 1
                 ? 'Em Análise'
                 : 'Aprovada'
             }
