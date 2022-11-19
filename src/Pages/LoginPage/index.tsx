@@ -15,6 +15,7 @@ import api from '../../api'
 
 import './styles.scss'
 import { useDarkTheme } from '../../hooks/useDarkTheme'
+import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai'
 
 function LoginPage() {
   const { user, setUser } = useUser()
@@ -24,6 +25,7 @@ function LoginPage() {
   const [loginWithEmailSucceed, setLoginWithEmailSucceed] = useState(false)
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [passwordIsVisible, setPasswordIsVisible] = useState(false)
   const [loading, setLoading] = useState(false)
 
   const passwordInput = useRef<HTMLInputElement>(null)
@@ -73,6 +75,10 @@ function LoginPage() {
     toast(
       'Seu email institucional segue o seguinte formato: "clRA@g.unicamp.br"'
     )
+  }
+
+  function changePasswordVisibility() {
+    setPasswordIsVisible(value => !value)
   }
 
   async function handlePasswordVerification(
@@ -161,13 +167,23 @@ function LoginPage() {
                   <p className='email'>{email}</p>
                 </div>
                 <div className='input-container'>
-                  <input
-                    type='password'
-                    placeholder='Senha'
-                    onChange={event => setPassword(event.target.value)}
-                    value={password}
-                    ref={passwordInput}
-                  />
+                  <div className='password-input'>
+                    <input
+                      type={passwordIsVisible ? 'text' : 'password'}
+                      placeholder='Senha'
+                      className='password-input'
+                      onChange={event => setPassword(event.target.value)}
+                      value={password}
+                      ref={passwordInput}
+                    />
+                    {passwordIsVisible ? (
+                      <AiOutlineEyeInvisible
+                        onClick={changePasswordVisibility}
+                      />
+                    ) : (
+                      <AiOutlineEye onClick={changePasswordVisibility} />
+                    )}
+                  </div>
                   <Link to='/login/recuperar-senha'>Esqueceu sua senha?</Link>
                 </div>
               </div>

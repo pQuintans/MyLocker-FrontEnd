@@ -1,7 +1,11 @@
 import React, { useEffect, useRef, useState } from 'react'
 import toast, { Toaster } from 'react-hot-toast'
 import { Link } from 'react-router-dom'
-import { AiOutlineClose } from 'react-icons/ai'
+import {
+  AiOutlineClose,
+  AiOutlineEye,
+  AiOutlineEyeInvisible,
+} from 'react-icons/ai'
 
 import Footer from '../../components/Footer'
 import NavBar from '../../components/NavBar'
@@ -34,6 +38,12 @@ function ProfilePage() {
   const [selectedImage, setSelectedImage] = useState<File>()
   const [loading, setLoading] = useState(false)
   const [loadingLocker, setLoadingLocker] = useState(true)
+  const [oldPasswordIsVisible, setOldPasswordIsVisible] = useState(false)
+  const [newPasswordIsVisible, setNewPasswordIsVisible] = useState(false)
+  const [
+    newPasswordConfirmationIsVisible,
+    setNewPasswordConfirmationIsVisible,
+  ] = useState(false)
 
   const oldPasswordInputRef = useRef<HTMLInputElement>(null)
   const newPasswordInputRef = useRef<HTMLInputElement>(null)
@@ -43,6 +53,18 @@ function ProfilePage() {
   const colorSpanRef = useRef<HTMLSpanElement>(null)
 
   const userCompleteName = user.first_name + ' ' + user.last_name
+
+  function changeOldPasswordVisibility() {
+    setOldPasswordIsVisible(value => !value)
+  }
+
+  function changeNewPasswordVisibility() {
+    setNewPasswordIsVisible(value => !value)
+  }
+
+  function changeNewPasswordConfirmationVisibility() {
+    setNewPasswordConfirmationIsVisible(value => !value)
+  }
 
   function handleChangeProfilePictureModalChangeState() {
     if (changeProfilePictureModalIsOpen) {
@@ -236,22 +258,58 @@ function ProfilePage() {
                 handleChangePassword(e)
               }}
             >
-              <input
-                placeholder='Senha antiga'
-                type='text'
-                ref={oldPasswordInputRef}
-              />
-              <Link to='/login/recuperar-senha'>Esqueceu sua senha?</Link>
-              <input
-                placeholder='Nova senha'
-                type='text'
-                ref={newPasswordInputRef}
-              />
-              <input
-                placeholder='Confirmar nova senha'
-                type='text'
-                ref={newPasswordConfirmationInputRef}
-              />
+              <div className='password-input'>
+                <input
+                  type={oldPasswordIsVisible ? 'text' : 'password'}
+                  placeholder='Senha'
+                  ref={oldPasswordInputRef}
+                />
+                {oldPasswordIsVisible ? (
+                  <AiOutlineEyeInvisible
+                    onClick={changeOldPasswordVisibility}
+                  />
+                ) : (
+                  <AiOutlineEye onClick={changeOldPasswordVisibility} />
+                )}
+              </div>
+              <Link
+                to='/login/recuperar-senha'
+                onClick={handleChangePasswordModalChangeState}
+              >
+                Esqueceu sua senha?
+              </Link>
+
+              <div className='password-input'>
+                <input
+                  type={newPasswordIsVisible ? 'text' : 'password'}
+                  placeholder='Nova senha'
+                  ref={newPasswordInputRef}
+                />
+                {newPasswordIsVisible ? (
+                  <AiOutlineEyeInvisible
+                    onClick={changeNewPasswordVisibility}
+                  />
+                ) : (
+                  <AiOutlineEye onClick={changeNewPasswordVisibility} />
+                )}
+              </div>
+
+              <div className='password-input'>
+                <input
+                  type={newPasswordConfirmationIsVisible ? 'text' : 'password'}
+                  placeholder='Nova senha'
+                  ref={newPasswordConfirmationInputRef}
+                />
+                {newPasswordConfirmationIsVisible ? (
+                  <AiOutlineEyeInvisible
+                    onClick={changeNewPasswordConfirmationVisibility}
+                  />
+                ) : (
+                  <AiOutlineEye
+                    onClick={changeNewPasswordConfirmationVisibility}
+                  />
+                )}
+              </div>
 
               <button type='submit' className={loading ? 'loading' : ''}>
                 {loading ? <Loading /> : 'Continuar'}

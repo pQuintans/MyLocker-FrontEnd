@@ -14,6 +14,7 @@ import api from '../../api'
 
 import './styles.scss'
 import { useDarkTheme } from '../../hooks/useDarkTheme'
+import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai'
 
 function VerifyLoginPage() {
   const { user, setUser } = useUser()
@@ -21,6 +22,9 @@ function VerifyLoginPage() {
   const navigate = useNavigate()
 
   const [loading, setLoading] = useState(false)
+  const [passwordIsVisible, setPasswordIsVisible] = useState(false)
+  const [passwordConfirmationIsVisible, setPasswordConfirmationIsVisible] =
+    useState(false)
 
   const passwordInput = useRef<HTMLInputElement>(null)
   const passwordConfirmationInput = useRef<HTMLInputElement>(null)
@@ -87,6 +91,14 @@ function VerifyLoginPage() {
     }
   }
 
+  function changePasswordVisibility() {
+    setPasswordIsVisible(value => !value)
+  }
+
+  function changePasswordConfirmationVisibility() {
+    setPasswordConfirmationIsVisible(value => !value)
+  }
+
   useEffect(() => {
     toast.dismiss()
   }, [])
@@ -118,16 +130,40 @@ function VerifyLoginPage() {
                 </div>
                 <div className='input-container'>
                   <div className='input-group'>
-                    <input
-                      type='text'
-                      placeholder='Senha'
-                      ref={passwordInput}
-                    />
-                    <input
-                      type='text'
-                      placeholder='Confirmar Senha'
-                      ref={passwordConfirmationInput}
-                    />
+                    <div className='password-input'>
+                      <input
+                        type={passwordIsVisible ? 'text' : 'password'}
+                        placeholder='Senha'
+                        className='password-input'
+                        ref={passwordInput}
+                      />
+                      {passwordIsVisible ? (
+                        <AiOutlineEyeInvisible
+                          onClick={changePasswordVisibility}
+                        />
+                      ) : (
+                        <AiOutlineEye onClick={changePasswordVisibility} />
+                      )}
+                    </div>
+                    <div className='password-input'>
+                      <input
+                        type={
+                          passwordConfirmationIsVisible ? 'text' : 'password'
+                        }
+                        className='password-input'
+                        placeholder='Confirmar Senha'
+                        ref={passwordConfirmationInput}
+                      />
+                      {passwordConfirmationIsVisible ? (
+                        <AiOutlineEyeInvisible
+                          onClick={changePasswordConfirmationVisibility}
+                        />
+                      ) : (
+                        <AiOutlineEye
+                          onClick={changePasswordConfirmationVisibility}
+                        />
+                      )}
+                    </div>
                   </div>
                 </div>
               </div>

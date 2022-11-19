@@ -256,6 +256,21 @@
           }
         }
 
+        .password-input {
+          width:100%;
+          position: relative;
+
+          svg {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translatey(calc(-50% + 10px));
+            width: 36px;
+            height: 36px;
+            cursor: pointer;
+          }
+        }
+
         p, a {
           display: block;
           text-decoration: none;

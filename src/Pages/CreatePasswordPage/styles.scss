@@ -132,6 +132,20 @@
           .input-container {
             width: 100%;
 
+            .password-input {
+              position: relative;
+
+              svg {
+                position: absolute;
+                right: 20px;
+                top: 50%;
+                transform: translatey(-50%);
+                width: 36px;
+                height: 36px;
+                cursor: pointer;
+              }
+            }
+
             .input-group {
               padding: 0 18px;
               display: flex;
