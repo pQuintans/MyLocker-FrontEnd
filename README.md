@@ -45,31 +45,20 @@ O projeto **MyLocker** é uma plataforma de locação de armários desenvolvido 
 
 ## 💻 Sobre o projeto
 
-♻️ Ecoleta - é uma forma de conectar empresas e entidades de coleta de resíduos orgânicos e inorgânicos as pessoas que precisam descartar seus resíduos de maneira ecológica.
+🔒 MyLocker - é uma forma de facilitar a vida de estudantes no processo de aluguel e gerenciamento de seus armários.
 
 
-Projeto desenvolvido durante a **NLW - Next Level Week** oferecida pela [Rocketseat](https://blog.rocketseat.com.br/primeira-next-level-week/).
-O NLW é uma experiência online com muito conteúdo prático, desafios e hacks onde o conteúdo fica disponível durante uma semana.
+Projeto desenvolvido como Trabalho de Conclusão de Curso do curso Técnico em Informática, no [Colégio Técnico de Limeira - Unicamp](https://www.cotil.unicamp.br/).
 
 ---
 
 ## ⚙️ Funcionalidades
 
-- [x] Empresas ou entidades podem se cadastrar na plataforma web enviando:
-  - [x] uma imagem do ponto de coleta
-  - [x] nome da entidade, email e whatsapp
-  - [x] e o endereço para que ele possa aparecer no mapa
-  - [x] além de selecionar um ou mais ítens de coleta:
-    - lâmpadas
-    - pilhas e baterias
-    - papéis e papelão
-    - resíduos eletrônicos
-    - resíduos orgânicos
-    - óleo de cozinha
-
-- [x] Os usuários tem acesso ao aplicativo móvel, onde podem:
-  - [x] navegar pelo mapa para ver as instituições cadastradas
-  - [x] entrar em contato com a entidade através do E-mail ou do WhatsApp
+- [x] Alunos podem gerenciar sua conta e alugar armários, tudo isso com uma experiência personalizada pelo site:
+  - [x] alterando sua foto de perfil
+  - [x] alterando sua senha
+  - [x] alterar o tema de cores do site
+  - [x] além de selecionar um armário pelo mapa de armários fazendo sua locação
 
 ---
 
@@ -77,12 +66,13 @@ O NLW é uma experiência online com muito conteúdo prático, desafios e hacks 
 
 O layout da aplicação está disponível no Figma:
 
-<a href="https://www.figma.com/file/1SxgOMojOB2zYT0Mdk28lB/Ecoleta?node-id=136%3A546">
+<a href="https://www.figma.com/file/iWf90nIEcOjp3pCiJqcnPs/MyLocker---Web?node-id=108%3A1429&t=yavNyk5xW4JBP6xK-1">
   <img alt="Made by tgmarinho" src="https://img.shields.io/badge/Acessar%20Layout%20-Figma-%2304D361">
 </a>
 
 <p align="center" style="display: flex; align-items: flex-start; justify-content: center;">
-  <img alt="MyLocker" title="#MyLocker" src="./src/assets/MyLocker_Print.png" width="400px"><img alt="MyLocker" title="#MyLocker" src="./src/assets/MyLocker_Print2.png" width="400px">
+  <img alt="MyLocker" title="#MyLocker" src="./src/assets/MyLocker_Print.png" width="400px">
+  <img alt="MyLocker" title="#MyLocker" src="./src/assets/MyLocker_Print2.png" width="400px">
 </p>
 
 ---
@@ -90,11 +80,12 @@ O layout da aplicação está disponível no Figma:
 ## 🚀 Como executar o projeto
 
 Este projeto é divido em três partes:
-1. Backend (pasta server)
-2. Frontend (pasta web)
-3. Mobile (pasta mobile)
+1. Backend (pQuintans/MyLocker-Api)
+2. Frontend (pQuintans/MyLocker-FrontEnd)
+3. Mobile
 
-💡Tanto o Frontend quanto o Mobile precisam que o Backend esteja sendo executado para funcionar.
+💡Tanto o Frontend quanto o Mobile precisam que o Backend esteja sendo executado para funcionar, porém, este repositório contêm somente a sua versão Front End.
+O back end pode ser encontrado [aqui](https://github.com/pQuintans/MyLocker-Api)
 
 ### Pré-requisitos
 
@@ -102,35 +93,13 @@ Antes de começar, você vai precisar ter instalado em sua máquina as seguintes
 [Git](https://git-scm.com), [Node.js](https://nodejs.org/en/).
 Além disto é bom ter um editor para trabalhar com o código como [VSCode](https://code.visualstudio.com/)
 
-#### 🎲 Rodando o Backend (servidor)
-
-```bash
-# Clone este repositório
-$ git clone git@github.com:tgmarinho/README-ecoleta.git
-# Acesse a pasta do projeto no terminal/cmd
-$ cd README-ecoleta
-# Vá para a pasta server
-$ cd server
-# Instale as dependências
-$ npm install
-# Execute a aplicação em modo de desenvolvimento
-$ npm run dev:server
-# O servidor inciará na porta:3333 - acesse http://localhost:3333
-```
-<p align="center">
-  <a href="https://github.com/tgmarinho/README-ecoleta/blob/master/Insomnia_API_Ecoletajson.json" target="_blank"><img src="https://insomnia.rest/images/run.svg" alt="Run in Insomnia"></a>
-</p>
-
-
 #### 🧭 Rodando a aplicação web (Frontend)
 
 ```bash
 # Clone este repositório
-$ git clone git@github.com:tgmarinho/README-ecoleta.git
+$ git clone https://github.com/pQuintans/MyLocker-FrontEnd.git
 # Acesse a pasta do projeto no seu terminal/cmd
-$ cd README-ecoleta
-# Vá para a pasta da aplicação Front End
-$ cd web
+$ cd MyLocker-FrontEnd
 # Instale as dependências
 $ npm install
 # Execute a aplicação em modo de desenvolvimento
@@ -138,11 +107,66 @@ $ npm run start
 # A aplicação será aberta na porta:3000 - acesse http://localhost:3000
 ```
 
+---
+
+## 🛠 Tecnologias
+
+As seguintes ferramentas foram usadas na construção do projeto:
+
+#### **Website**  ([React](https://reactjs.org/)  +  [TypeScript](https://www.typescriptlang.org/))
+
+-   **[React Router Dom](https://github.com/ReactTraining/react-router/tree/master/packages/react-router-dom)**
+-   **[React Icons](https://react-icons.github.io/react-icons/)**
+-   **[Axios](https://github.com/axios/axios)**
+-   **[ESLint](https://eslint.org/docs/latest/)**
+-   **[Sass](https://sass-lang.com/documentation/)**
+
+> Veja o arquivo  [package.json](https://github.com/pQuintans/MyLocker-FrontEnd/blob/main/package.json)
+
+#### ♟ **Utilitários**
+
+-   Protótipo:  **[Figma](https://www.figma.com/)**  →  **[Protótipo (Ecoleta)](https://www.figma.com/proto/iWf90nIEcOjp3pCiJqcnPs/MyLocker---Web?page-id=0%3A1&node-id=1%3A5&viewport=241%2C48%2C0.79&scaling=contain&starting-point-node-id=193%3A966)**
+-   Hospedagem: **[Vercel](https://vercel.com/)** -> [Aplicação (MyLocker)](https://vercel.com/)**
+-   Editor:  **[Visual Studio Code](https://code.visualstudio.com/)**
+-   Fontes:  **[Poppins](https://fonts.google.com/specimen/Poppins)**,  **[Roboto](https://fonts.google.com/specimen/Roboto)**,  **[Roboto Mono](https://fonts.google.com/specimen/Roboto+Mono)**
+
 
 ---
-Desenvolvido 🖤 por
-  [Enzo Arilla Torresendi](https://github.com/Enzo-Arilla),
-  [Fábio Henrique Benedicto](https://github.com/FabioBenedicto),
-  [Pedro Losso Quintans](https://github.com/pQuintans),
-  [Pedro Ricieri Marchi](https://github.com/P3d11) e
-  [Vinicius Gabriel Laureano](https://github.com/ViniciusLaureano)
+
+## 👨‍💻 Contribuidores
+
+💜 Um agradecimento especial a essa equipe incrível, composta por 5 alunos do curso técnico de informática
+
+<table align="center">
+  <tr>
+    <td align="center"><a href="https://github.com/Enzo-Arilla"><img style="border-radius: 50%;" src="https://avatars.githubusercontent.com/u/88400027?v=4" width="100px;" alt=""/><br /><sub><b>Enzo Arilla</b></sub></a><br /><a href="https://mylocker.vercel.app/" title="MyLocker">🔒</a></td>
+    <td align="center"><a href="https://github.com/FabioBenedicto"><img style="border-radius: 50%;" src="https://avatars.githubusercontent.com/u/72147549?v=4" width="100px;" alt=""/><br /><sub><b>Fábio Benedicto</b></sub></a><br /><a href="https://mylocker.vercel.app/" title="MyLocker">🔒</a></td>
+    <td align="center"><a href="https://github.com/pQuintans"><img style="border-radius: 50%;" src="https://avatars.githubusercontent.com/u/62602085?v=4" width="100px;" alt=""/><br /><sub><b>Pedro Quintans</b></sub></a><br /><a href="https://mylocker.vercel.app/" title="MyLocker">🔒</a></td>    
+  </tr>
+</table>
+
+<table align="center">
+
+  <tr align="center">
+    <td align="center"><a href="https://github.com/P3d11"><img style="border-radius: 50%;" src="https://avatars.githubusercontent.com/u/88400067?v=4" width="100px;" alt=""/><br /><sub><b>Pedro Ricieri</b></sub></a><br /><a href="https://mylocker.vercel.app/" title="MyLocker">🔒</a></td>
+     <td align="center"><a href="https://github.com/LauVii13"><img style="border-radius: 50%;" src="https://avatars.githubusercontent.com/u/88734919?v=4" width="100px;" alt=""/><br /><sub><b>Vinícius Laureano</b></sub></a><br /><a href="https://mylocker.vercel.app/" title="MyLocker">🔒</a></td>
+    </tr>
+</table>
+
+---
+
+## 🦸 Autor
+
+<a href="https://github.com/pQuintans">
+ <img style="border-radius: 50%;" src="https://avatars.githubusercontent.com/u/62602085?v=4" width="100px;" alt=""/>
+ <br />
+ <sub><b>Pedro Quintans</b></sub></a> <a href="https://github.com/pQuintans" title="MyLocker">🔒</a>
+ <br />
+ <br />
+
+[![Twitter Badge](https://img.shields.io/badge/-@DCaixote-1ca0f1?style=flat-square&labelColor=1ca0f1&logo=twitter&logoColor=white&link=https://twitter.com/DCaixote)](https://twitter.com/DCaixote) [![Linkedin Badge](https://img.shields.io/badge/-Pedro%20Quintans-12312313?style=flat-square&logo=Linkedin&logoColor=white&link=https://www.linkedin.com/in/pedro-quintans/)](https://www.linkedin.com/in/pedro-quintans/) 
+[![Gmail Badge](https://img.shields.io/badge/-pquintanss@gmail.com-c14438?style=flat-square&logo=Gmail&logoColor=white&link=mailto:pquintanss@gmail.com)](mailto:pquintanss@gmail.com)
+
+---
+
+Feito com 🖤 por Pedro Quintans 👋 Entre em contato!
