@@ -42,28 +42,28 @@ function ChooseLockersSection({ navigateToSection }: ChooseLockersSection) {
           <p>Sala 12</p>
         </div>
         <div className='in-section'>
-          <p>Sala 10</p>
+          <p>Saúde</p>
           <img
             onClick={() => navigateToSection(3)}
             id='3'
             src={LockerSectionRed}
             alt='Bloco Vermelho 1'
           />
-          <p>Sala 11</p>
+          <p>Sala 13</p>
           <img
             onClick={() => navigateToSection(4)}
             id='4'
             src={LockerSectionRed}
             alt='Bloco Vermelho 2'
           />
-          <p>Sala 11</p>
+          <p>Sala 14</p>
           <img
             onClick={() => navigateToSection(5)}
             id='5'
             src={LockerSectionRed}
             alt='Bloco Vermelho 3'
           />
-          <p>Sala 12</p>
+          <p>Sala 15</p>
         </div>
         <div className='in-section'>
           <p>Sala 2</p>
@@ -76,21 +76,21 @@ function ChooseLockersSection({ navigateToSection }: ChooseLockersSection) {
           <p>Sala 3</p>
         </div>
         <div className='in-section'>
-          <p>Sala 2</p>
+          <p>Vestiário Masculino</p>
           <img
             onClick={() => navigateToSection(7)}
             id='7'
             src={LockerSectionBlue}
             alt='Bloco Azul 1'
           />
-          <p>Sala 3</p>
+          <p>Sala 4</p>
           <img
             onClick={() => navigateToSection(8)}
             id='8'
             src={LockerSectionBlue}
             alt='Bloco Azul 2'
           />
-          <p>Sala 3</p>
+          <p>Sala 5</p>
         </div>
       </div>
     </>
