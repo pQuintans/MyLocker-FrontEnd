@@ -167,7 +167,7 @@ function ConfirmRentPage() {
                 </div>
                 <div className='discount'>
                   <p>Desconto APM</p>
-                  {user.apm[0]?.status == 2 ? (
+                  {user.apm[0]?.status > 0 ? (
                     <p>
                       ({(discount * 100) / regularPrice}%) - R$
                       {regularPrice - discount},00
@@ -182,7 +182,7 @@ function ConfirmRentPage() {
                   <p>Total</p>
                   <p>
                     R$
-                    {user.apm[0]?.status == 2
+                    {user.apm[0]?.status > 0
                       ? regularPrice - discount
                       : regularPrice}
                     ,00
